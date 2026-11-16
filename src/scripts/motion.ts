@@ -117,6 +117,27 @@ const header = document.querySelector<HTMLElement>('[data-header]');
 const parallax = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
 const progress = Array.from(document.querySelectorAll<HTMLElement>('[data-progress]'));
 
+/* Parallax positions are measured once (and on resize), not on every scroll frame */
+type ParallaxItem = { el: HTMLElement; top: number; height: number; speed: number };
+let parallaxItems: ParallaxItem[] = [];
+function measureParallax() {
+  parallaxItems = parallax.map((el) => {
+    const prev = el.style.transform;
+    el.style.transform = '';
+    const r = el.getBoundingClientRect();
+    el.style.transform = prev;
+    return { el, top: r.top + window.scrollY, height: r.height, speed: parseFloat(el.dataset.parallax ?? '0.1') };
+  });
+}
+measureParallax();
+// Fonts/images can shift layout after first paint
+window.addEventListener('load', () => { measureParallax(); onScroll(); });
+let resizeTimer = 0;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = window.setTimeout(() => { measureParallax(); onScroll(); }, 150);
+});
+
 let lastY = window.scrollY;
 let ticking = false;
 
@@ -130,21 +151,22 @@ function onScroll() {
     if (!header.classList.contains('menu-open')) header.classList.toggle('is-hidden', goingDown);
   }
 
+  // Read every position first, then write: no forced layout between elements
   if (!reduce) {
-    for (const el of parallax) {
-      const r = el.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > vh + 200) continue;
-      const speed = parseFloat(el.dataset.parallax ?? '0.1');
-      const offset = (r.top + r.height / 2 - vh / 2) * speed;
-      el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+    const moves: [HTMLElement, number][] = [];
+    for (const p of parallaxItems) {
+      const top = p.top - y; // layout position, independent of the parallax transform itself
+      if (top + p.height < -200 || top > vh + 200) continue;
+      moves.push([p.el, (top + p.height / 2 - vh / 2) * p.speed]);
     }
+    for (const [el, offset] of moves) el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
   }
 
-  for (const el of progress) {
+  const ratios = progress.map((el) => {
     const r = el.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, (vh * 0.6 - r.top) / r.height));
-    el.style.setProperty('--p', p.toFixed(3));
-  }
+    return Math.min(1, Math.max(0, (vh * 0.6 - r.top) / r.height));
+  });
+  progress.forEach((el, i) => el.style.setProperty('--p', ratios[i].toFixed(3)));
 
   lastY = y;
   ticking = false;
@@ -161,6 +183,12 @@ window.addEventListener(
   { passive: true },
 );
 onScroll();
+
+/* ───────── Pause decorative loops when off-screen ───────── */
+const hero = document.querySelector<HTMLElement>('.hero');
+if (hero) {
+  new IntersectionObserver(([e]) => hero.classList.toggle('is-off', !e.isIntersecting)).observe(hero);
+}
 
 /* ───────── Hero entrance ───────── */
 requestAnimationFrame(() => {
