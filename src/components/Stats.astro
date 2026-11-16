@@ -1,0 +1,50 @@
+---
+import { stats } from '../data/site';
+---
+<section class="stats" aria-label="Chiffres clés">
+  <div class="container">
+    <dl class="stats__grid" style={`--n:${stats.length}`}>
+      {stats.map((s, i) => (
+        <div class="stats__item" data-reveal style={`--i:${i}`}>
+          <dt class="sr-only">{s.label}</dt>
+          <dd class="stats__value">
+            <span data-count={s.value} data-decimals={s.decimals ?? 0}>{s.decimals ? s.value.toLocaleString('fr-FR', { minimumFractionDigits: s.decimals }) : s.value.toLocaleString('fr-FR')}</span><span class="stats__suffix">{s.suffix}</span>
+          </dd>
+          <dd class="stats__label" aria-hidden="true">{s.label}{s.note && <small> · {s.note}</small>}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .stats { padding-top: calc(var(--section-y) * 0.85); padding-bottom: calc(var(--section-y) * 0.4); }
+  .stats__grid {
+    display: grid; grid-template-columns: repeat(var(--n, 4), 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .stats__item {
+    padding: var(--s-6) var(--s-5) 0;
+    border-left: 1px solid var(--line);
+  }
+  .stats__item:first-child { border-left: 0; padding-left: 0; }
+  .stats__value {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+    line-height: 1; letter-spacing: -0.045em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stats__suffix { color: var(--ember); margin-left: 2px; }
+  .stats__label { margin-top: var(--s-3); color: var(--fg-muted); font-size: var(--fs-sm); max-width: 22ch; }
+  .stats__label small { font-size: inherit; opacity: 0.8; }
+
+  @media (max-width: 640px) {
+    .stats__grid { grid-template-columns: 1fr; border-top: 0; }
+    .stats__item {
+      display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4);
+      border-left: 0; border-top: 1px solid var(--line);
+      padding: var(--s-5) 0;
+    }
+    .stats__label { margin-top: 0; text-align: right; }
+  }
+</style>

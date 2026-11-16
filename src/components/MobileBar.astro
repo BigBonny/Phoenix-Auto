@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+<div class="mbar" data-mbar>
+  <a href={`tel:${site.phoneHref}`} class="mbar__btn" aria-label={`Appeler le ${site.phone}`}><Icon name="phone" /></a>
+  {site.whatsapp ? <a href={`https://wa.me/${site.whatsapp}`} class="mbar__btn" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp (nouvel onglet)"><Icon name="whatsapp" /></a> : <a href={site.google.url} class="mbar__btn" target="_blank" rel="noopener" aria-label="Itinéraire vers l’agence (nouvel onglet)"><Icon name="pin" /></a>}
+  <a href="#contact" class="btn btn--primary mbar__cta">Réserver mon évaluation</a>
+</div>
+
+<style>
+  .mbar {
+    position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: var(--z-bar);
+    display: none; align-items: center; gap: 8px;
+    padding: 8px; border-radius: var(--r-pill);
+    background: rgba(14, 26, 43, 0.88);
+    backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5), inset 0 0 0 1px var(--line-dark);
+    color: var(--on-dark);
+    transform: translateY(160%);
+    transition: transform 0.5s var(--ease-out);
+  }
+  .mbar.is-visible { transform: none; }
+  .mbar__btn {
+    flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(243, 245, 248, 0.08); color: var(--amber);
+  }
+  .mbar__btn :global(.icon) { width: 20px; height: 20px; }
+  .mbar__cta { flex: 1; min-height: 48px; padding: 0 16px; font-size: var(--fs-sm); }
+  @media (max-width: 860px) { .mbar { display: flex; } }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-mbar]');
+  const hero = document.querySelector('#top');
+  const contact = document.querySelector('#contact');
+  if (bar && hero && contact) {
+    let heroVisible = true;
+    let contactVisible = false;
+    const update = () => bar.classList.toggle('is-visible', !heroVisible && !contactVisible);
+    new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(hero);
+    new IntersectionObserver(([e]) => { contactVisible = e.isIntersecting; update(); }, { threshold: 0.05 }).observe(contact);
+  }
+</script>

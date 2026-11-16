@@ -1,0 +1,256 @@
+---
+import Icon from './Icon.astro';
+import { pricing, funding } from '../data/site';
+const fmt = (n: number) => n.toLocaleString('fr-FR');
+const planToFormation = (name: string) =>
+  /code/i.test(name) ? 'code' : /accompagn/i.test(name) ? 'aac' : /passerelle/i.test(name) ? 'passerelle' : /BEA/.test(name) ? 'boite-auto' : 'permis-b';
+const groups = [
+  { key: 'manuelle', label: 'Boîte manuelle', plans: pricing.manuelle },
+  { key: 'automatique', label: 'Boîte automatique', plans: pricing.automatique },
+] as const;
+---
+<section class="section" id="tarifs" aria-labelledby="tarifs-title">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow" data-reveal>Tarifs</p>
+      <h2 id="tarifs-title" class="section-title" data-split>
+        Des prix clairs, <span class="serif fire-text">sans surprise.</span>
+      </h2>
+      <p class="section-lead" data-reveal style="--d:200ms">
+        Frais de dossier et démarches ANTS inclus. Payable en 4× sans frais ou finançable par le CPF.
+      </p>
+    </div>
+
+    <div class="tabs" data-reveal>
+      <div class="tabs__list" role="tablist" aria-label="Type de boîte de vitesses">
+        <span class="tabs__indicator" aria-hidden="true"></span>
+        {groups.map((g, i) => (
+          <button
+            role="tab"
+            id={`tab-${g.key}`}
+            class="tabs__tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={`panel-${g.key}`}
+            tabindex={i === 0 ? 0 : -1}
+            data-tab={i}
+          >{g.label}</button>
+        ))}
+      </div>
+    </div>
+
+    {groups.map((g, gi) => (
+      <div
+        role="tabpanel"
+        id={`panel-${g.key}`}
+        aria-labelledby={`tab-${g.key}`}
+        class="plans"
+        hidden={gi !== 0}
+        tabindex="0"
+      >
+        {g.plans.map((p, i) => (
+          <article class:list={['plan card spotlight', { 'plan--featured': 'featured' in p && p.featured }]} data-reveal style={`--i:${i}`}>
+            {'featured' in p && p.featured && <span class="plan__badge">Le plus choisi</span>}
+            <h3 class="plan__name">{p.name}</h3>
+            <p class="plan__desc">{p.desc}</p>
+            <p class="plan__price">
+              <span class="plan__amount">{fmt(p.price)}</span>
+              <span class="plan__currency">€</span>
+              <span class="plan__unit">TTC · {p.unit}</span>
+            </p>
+            <p class="plan__split">ou 4 × {fmt(Math.ceil(p.price / 4))} € sans frais</p>
+            <ul class="plan__features" role="list">
+              {p.features.map((f) => <li><Icon name="check" /> {f}</li>)}
+            </ul>
+            <a href="#contact" class:list={['btn btn--block', 'featured' in p && p.featured ? 'btn--primary' : 'btn--ghost']} data-plan={planToFormation(p.name)}>
+              {p.cta} <Icon name="arrow" class="arrow" />
+            </a>
+          </article>
+        ))}
+      </div>
+    ))}
+
+    <div class="extras">
+      <div class="extras__list card" data-reveal>
+        <h3 class="extras__title">À la carte</h3>
+        <ul role="list">
+          {pricing.extras.map((e) => (
+            <li><span>{e.label}</span><span class="extras__dots" aria-hidden="true"></span><strong>{e.price}</strong></li>
+          ))}
+        </ul>
+      </div>
+      <div class="funding" data-reveal style="--d:120ms">
+        <h3 class="extras__title">Financer votre permis</h3>
+        <ul role="list" class="funding__grid">
+          {funding.map((f) => (
+            <li>
+              <strong>{f.title}</strong>
+              <span>{f.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class="pricing__legal">Tarifs TTC en vigueur, susceptibles d’évoluer. Évaluation de départ obligatoire avant toute formation (art. L213-2 du Code de la route).</p>
+  </div>
+</section>
+
+<style>
+  .tabs { display: flex; justify-content: center; margin-bottom: var(--s-7); }
+  .tabs__list {
+    position: relative; display: inline-grid; grid-template-columns: 1fr 1fr;
+    padding: 6px; border-radius: var(--r-pill);
+    background: var(--paper); box-shadow: var(--shadow-1);
+    --x: 0;
+  }
+  .tabs__indicator {
+    position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc(50% - 6px);
+    border-radius: var(--r-pill); background: var(--ink);
+    transform: translateX(calc(var(--x) * 100%));
+    transition: transform 0.5s var(--ease-spring);
+  }
+  .tabs__tab {
+    position: relative; z-index: 1;
+    min-height: 48px; padding: 0 clamp(16px, 4vw, 28px);
+    border-radius: var(--r-pill);
+    font-weight: 600; font-size: var(--fs-sm);
+    color: var(--fg-muted);
+    transition: color var(--t-med);
+    white-space: nowrap;
+  }
+  .tabs__tab[aria-selected='true'] { color: var(--on-dark); }
+
+  .plans {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4);
+    align-items: stretch;
+  }
+  .plans:focus-visible { outline-offset: 12px; border-radius: var(--r-lg); }
+  .plans.is-swapping .plan { animation: swap-in 0.6s var(--ease-out) both; animation-delay: calc(var(--i) * 70ms); }
+  @keyframes swap-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
+
+  .plan { display: flex; flex-direction: column; overflow: hidden; }
+  .plan:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); }
+  .plan__badge {
+    position: absolute; top: 20px; right: 20px;
+    font-size: var(--fs-xs); font-weight: 700; padding: 6px 12px; border-radius: var(--r-pill);
+    background: var(--amber); color: var(--ink);
+  }
+  .plan__name { font-size: 1.3rem; letter-spacing: -0.02em; padding-right: 120px; }
+  .plan__desc { margin-top: var(--s-2); color: var(--fg-muted); font-size: var(--fs-sm); min-height: 3em; }
+  .plan__price { margin-top: var(--s-5); display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; }
+  .plan__amount {
+    font-family: var(--font-display); font-weight: 750;
+    font-size: clamp(2.75rem, 2.2rem + 2vw, 3.75rem); letter-spacing: -0.05em; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .plan__currency { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; }
+  .plan__unit { font-size: var(--fs-xs); color: var(--fg-muted); margin-left: 6px; }
+  .plan__split { margin-top: 6px; font-size: var(--fs-sm); color: var(--ember); font-weight: 600; }
+  .plan__features {
+    margin: var(--s-5) 0 var(--s-6); padding-top: var(--s-5);
+    border-top: 1px dashed var(--line);
+    display: grid; gap: 10px; font-size: var(--fs-sm);
+  }
+  .plan__features li { display: flex; gap: 10px; align-items: flex-start; }
+  .plan__features :global(.icon) {
+    width: 20px; height: 20px; flex: none; padding: 3px; margin-top: 1px;
+    border-radius: 50%; stroke-width: 3; color: var(--ember); background: rgba(194, 58, 23, 0.1);
+  }
+  .plan .btn { margin-top: auto; }
+
+  .plan--featured {
+    background: var(--ink); color: var(--on-dark); border-color: transparent;
+    box-shadow: 0 30px 60px -24px rgba(14, 26, 43, 0.55);
+  }
+  .plan--featured::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+    background: linear-gradient(140deg, rgba(245, 165, 36, 0.8), transparent 40%, transparent 60%, rgba(226, 82, 31, 0.8));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+  }
+  .plan--featured .plan__desc, .plan--featured .plan__unit { color: var(--on-dark-muted); }
+  .plan--featured .plan__split { color: var(--amber); }
+  .plan--featured .plan__features { border-color: var(--line-dark); }
+  .plan--featured .plan__features :global(.icon) { color: var(--amber); background: rgba(245, 165, 36, 0.14); }
+  .plan--featured .plan__currency, .plan--featured .plan__amount {
+    background: var(--grad-fire); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .extras { margin-top: var(--s-7); display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--s-4); }
+  .extras__title { font-size: 1.25rem; letter-spacing: -0.02em; }
+  .extras__list ul { margin-top: var(--s-4); display: grid; gap: 14px; }
+  .extras__list li { display: flex; align-items: baseline; gap: 10px; font-size: var(--fs-sm); }
+  .extras__dots { flex: 1; border-bottom: 1.5px dotted var(--sand-2); transform: translateY(-4px); min-width: 12px; }
+  .extras__list strong { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .funding {
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+    border-radius: var(--r-lg);
+    position: relative; overflow: hidden;
+    background: var(--ink); color: var(--on-dark-muted);
+    box-shadow: 0 30px 60px -24px rgba(14, 26, 43, 0.45);
+  }
+  .funding::before {
+    content: ''; position: absolute; width: 320px; height: 320px; right: -120px; top: -140px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(226, 82, 31, 0.35), transparent 65%); pointer-events: none;
+  }
+  .funding .extras__title { color: var(--on-dark); position: relative; }
+  .funding__grid { margin-top: var(--s-4); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4) var(--s-5); }
+  .funding__grid li { display: grid; gap: 4px; font-size: var(--fs-sm); line-height: 1.45; }
+  .funding__grid { position: relative; }
+  .funding__grid strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--amber); }
+
+  .pricing__legal { margin-top: var(--s-5); font-size: var(--fs-xs); color: var(--fg-muted); text-align: center; }
+
+  @media (max-width: 1000px) {
+    .plans { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+    .extras { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .funding__grid { grid-template-columns: 1fr; }
+    .plan__name { padding-right: 0; }
+    .plan__badge { position: static; align-self: flex-start; margin-bottom: var(--s-3); }
+  }
+</style>
+
+<script>
+  const list = document.querySelector<HTMLElement>('.tabs__list');
+  if (list) {
+    const tabs = Array.from(list.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const select = (idx: number, focus = false) => {
+      tabs.forEach((t, i) => {
+        const on = i === idx;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute('aria-controls')!);
+        if (!panel) return;
+        panel.hidden = !on;
+        if (on) {
+          panel.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
+          panel.classList.remove('is-swapping');
+          void panel.offsetWidth;
+          panel.classList.add('is-swapping');
+        }
+      });
+      list.style.setProperty('--x', String(idx));
+      if (focus) tabs[idx].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          select((i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length, true);
+        }
+      });
+    });
+  }
+
+  // Pré-remplit le formulaire avec la formule choisie
+  document.querySelectorAll<HTMLAnchorElement>('[data-plan]').forEach((a) => {
+    a.addEventListener('click', () => {
+      const select = document.querySelector<HTMLSelectElement>('#f-formation');
+      if (!select) return;
+      select.value = a.dataset.plan!;
+    });
+  });
+</script>

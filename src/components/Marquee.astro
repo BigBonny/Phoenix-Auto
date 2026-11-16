@@ -1,0 +1,43 @@
+---
+const words = ['Permis B', 'Boîte automatique', 'Conduite accompagnée', 'Code de la route', 'Stage accéléré', 'Passerelle', 'Éligible CPF', '4,8/5 sur Google'];
+---
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {[0, 1].map(() => (
+      <ul class="marquee__group" role="list">
+        {words.map((w) => (
+          <li>
+            <span>{w}</span>
+            <svg viewBox="0 0 24 24" class="marquee__star"><path d="M12 0c.9 6.6 5.4 11.1 12 12-6.6.9-11.1 5.4-12 12-.9-6.6-5.4-11.1-12-12C6.6 11.1 11.1 6.6 12 0Z" /></svg>
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    position: relative;
+    background: var(--grad-fire);
+    color: var(--ink);
+    overflow: hidden;
+    padding-block: 18px;
+    transform: rotate(-1.2deg) scale(1.02);
+    margin-block: -24px;
+    z-index: 2;
+    box-shadow: 0 20px 40px -20px rgba(194, 58, 23, 0.6);
+  }
+  .marquee__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+  .marquee:hover .marquee__track { animation-play-state: paused; }
+  .marquee__group { display: flex; flex: none; }
+  .marquee__group li {
+    display: flex; align-items: center; gap: 28px; padding-right: 28px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.1rem, 0.9rem + 1vw, 1.6rem); letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .marquee__star { width: 18px; height: 18px; fill: var(--ink); }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
+</style>

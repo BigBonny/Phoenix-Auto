@@ -1,0 +1,124 @@
+---
+import Icon from './Icon.astro';
+import { formations } from '../data/site';
+---
+<section class="section" id="formations" aria-labelledby="formations-title">
+  <div class="container">
+    <div class="section-head formations__head">
+      <div>
+        <p class="eyebrow" data-reveal>Nos formations</p>
+        <h2 id="formations-title" class="section-title" data-split>
+          Une formule pour chaque <span class="serif fire-text">conducteur.</span>
+        </h2>
+      </div>
+      <p class="section-lead" data-reveal style="--d:200ms">
+        Que vous partiez de zéro, que vous soyez pressé ou que vous souhaitiez commencer dès 15 ans,
+        nous construisons avec vous le parcours le plus adapté.
+      </p>
+    </div>
+
+    <ul class="bento" role="list">
+      {formations.map((f, i) => (
+        <li class:list={['bento__item', { 'bento__item--featured': f.featured }]} data-reveal style={`--i:${i}`}>
+          <article class="card spotlight bento__card">
+            <div class="bento__top">
+              <span class="icon-badge"><Icon name={f.icon} /></span>
+              <span class="bento__kicker">{f.kicker}</span>
+            </div>
+            <h3 class="bento__title">{f.title}</h3>
+            <p class="bento__text">{f.text}</p>
+            <ul class="bento__points" role="list">
+              {f.points.map((p) => <li><Icon name="check" /> {p}</li>)}
+            </ul>
+            <a href="#contact" class="bento__link" aria-label={`Se renseigner : ${f.title}`}>
+              Se renseigner <Icon name="arrow" />
+            </a>
+            {f.featured && (
+              <svg class="bento__deco" viewBox="0 0 400 200" aria-hidden="true">
+                <path d="M0 180 C 80 170, 140 90, 220 100 S 340 40, 400 20" />
+              </svg>
+            )}
+          </article>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .formations__head {
+    max-width: none;
+    display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: end; gap: var(--s-6);
+  }
+  .formations__head .section-lead { margin-top: 0; }
+
+  .bento {
+    list-style: none; padding: 0;
+    display: grid; gap: var(--s-4);
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .bento__item--featured { grid-column: span 2; grid-row: span 2; }
+  .bento__card {
+    height: 100%;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .bento__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
+
+  .bento__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
+  .bento__kicker {
+    font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.04em;
+    padding: 6px 12px; border-radius: var(--r-pill);
+    background: var(--sand); color: var(--fg-muted);
+  }
+  .bento__title { margin-top: var(--s-5); font-size: var(--fs-lg); letter-spacing: -0.02em; }
+  .bento__text { margin-top: var(--s-3); color: var(--fg-muted); }
+  .bento__points { margin-top: var(--s-4); display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .bento__points li {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: var(--fs-xs); font-weight: 500;
+    padding: 6px 12px 6px 8px; border-radius: var(--r-pill);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .bento__points :global(.icon) { width: 14px; height: 14px; color: var(--ember); stroke-width: 2.4; }
+  .bento__link {
+    margin-top: auto; padding-top: var(--s-5);
+    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+    font-weight: 600; color: var(--ember);
+    min-height: 44px;
+  }
+  .bento__link :global(.icon) { width: 18px; height: 18px; transition: transform var(--t-med) var(--ease-out); }
+  .bento__card:hover .bento__link :global(.icon) { transform: translateX(5px); }
+  .bento__link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+
+  /* Featured card: dark */
+  .bento__item--featured .bento__card {
+    background: var(--ink); color: var(--on-dark); border-color: transparent;
+  }
+  .bento__item--featured .bento__text { color: var(--on-dark-muted); max-width: 46ch; }
+  .bento__item--featured .bento__title { font-size: var(--fs-xl); max-width: 16ch; }
+  .bento__item--featured .bento__kicker { background: rgba(245, 165, 36, 0.14); color: var(--amber); }
+  .bento__item--featured .icon-badge { background: var(--grad-fire); color: var(--ink); }
+  .bento__item--featured .bento__points li { box-shadow: inset 0 0 0 1px var(--line-dark); }
+  .bento__item--featured .bento__points :global(.icon) { color: var(--amber); }
+  .bento__item--featured .bento__link { color: var(--amber); }
+  .bento__deco {
+    position: absolute; right: -10px; bottom: -6px; width: 62%; height: auto; pointer-events: none;
+  }
+  .bento__deco path {
+    fill: none; stroke: rgba(245, 165, 36, 0.35); stroke-width: 2; stroke-dasharray: 10 12;
+    animation: drive-deco 3s linear infinite;
+  }
+  @keyframes drive-deco { to { stroke-dashoffset: -44; } }
+
+  @media (max-width: 960px) {
+    .formations__head { grid-template-columns: 1fr; }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .bento__item--featured { grid-row: auto; }
+    .bento__item:last-child { grid-column: span 2; }
+  }
+  @media (max-width: 640px) {
+    .bento { grid-template-columns: 1fr; }
+    .bento__item--featured, .bento__item:last-child { grid-column: auto; }
+  }
+</style>

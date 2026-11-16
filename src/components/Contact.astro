@@ -1,0 +1,450 @@
+---
+import Icon from './Icon.astro';
+import { site, formations } from '../data/site';
+const { lat, lng } = site.address;
+const d = 0.008;
+const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - d * 1.6}%2C${lat - d}%2C${lng + d * 1.6}%2C${lat + d}&layer=mapnik&marker=${lat}%2C${lng}`;
+const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+---
+<section class="section section--dark contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact__glow" aria-hidden="true"></div>
+  <div class="container contact__grid">
+    <div class="contact__info">
+      <p class="eyebrow" data-reveal>Contact & inscription</p>
+      <h2 id="contact-title" class="section-title" data-split>
+        Prêt à <span class="serif fire-text">prendre la route ?</span>
+      </h2>
+      <p class="section-lead" data-reveal style="--d:200ms">
+        Réservez votre évaluation de départ ou posez-nous vos questions. Nous vous rappelons sous 24 h ouvrées.
+      </p>
+
+      <ul class="contact__quick" role="list" data-reveal style="--d:300ms">
+        <li>
+          <a href={`tel:${site.phoneHref}`} class="quick">
+            <span class="quick__icon"><Icon name="phone" /></span>
+            <span><span class="quick__label">Téléphone</span><span class="quick__value">{site.phone}</span></span>
+          </a>
+        </li>
+        {site.whatsapp && <li>
+          <a href={`https://wa.me/${site.whatsapp}`} class="quick" target="_blank" rel="noopener">
+            <span class="quick__icon"><Icon name="whatsapp" /></span>
+            <span><span class="quick__label">WhatsApp</span><span class="quick__value">Écrivez-nous</span></span>
+          </a>
+        </li>}
+        {site.email && <li>
+          <a href={`mailto:${site.email}`} class="quick">
+            <span class="quick__icon"><Icon name="mail" /></span>
+            <span><span class="quick__label">E-mail</span><span class="quick__value">{site.email}</span></span>
+          </a>
+        </li>}
+        <li>
+          <a href={site.google.url} class="quick" target="_blank" rel="noopener">
+            <span class="quick__icon"><Icon name="pin" /></span>
+            <span><span class="quick__label">En agence</span><span class="quick__value">{site.address.street}, {site.address.city}</span></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-card" data-reveal="scale" style="--d:150ms">
+      <form class="form" id="contact-form" novalidate data-endpoint={site.formEndpoint} data-whatsapp={site.whatsapp} data-email={site.email} data-phone={site.phone} data-phone-href={site.phoneHref}>
+        <div class="form__success" role="status" aria-live="polite" hidden tabindex="-1">
+          <span class="form__success-icon"><Icon name="check" /></span>
+          <h3>Demande envoyée !</h3>
+          <p>Merci, nous vous recontactons très vite pour planifier votre évaluation.</p>
+        </div>
+
+        <div class="form__fields">
+          <h3 class="form__title">Réserver mon évaluation</h3>
+          <p class="form__hint">Les champs marqués <span aria-hidden="true">*</span><span class="sr-only">d’un astérisque</span> sont obligatoires.</p>
+
+          <div class="form__summary" role="alert" tabindex="-1" hidden></div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-prenom">Prénom <span aria-hidden="true">*</span></label>
+              <input id="f-prenom" name="prenom" type="text" autocomplete="given-name" required aria-describedby="f-prenom-err" />
+              <p class="field__error" id="f-prenom-err"></p>
+            </div>
+            <div class="field">
+              <label for="f-nom">Nom <span aria-hidden="true">*</span></label>
+              <input id="f-nom" name="nom" type="text" autocomplete="family-name" required aria-describedby="f-nom-err" />
+              <p class="field__error" id="f-nom-err"></p>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="f-tel">Téléphone <span aria-hidden="true">*</span></label>
+              <input id="f-tel" name="telephone" type="tel" inputmode="tel" autocomplete="tel" required pattern="^(?:\+33\s?|0)[1-9](?:[\s.\-]?\d{2}){4}$" aria-describedby="f-tel-help f-tel-err" />
+              <p class="field__help" id="f-tel-help">Ex. 06 12 34 56 78</p>
+              <p class="field__error" id="f-tel-err"></p>
+            </div>
+            <div class="field">
+              <label for="f-email">E-mail</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="f-email-err" />
+              <p class="field__error" id="f-email-err"></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-formation">Formation souhaitée <span aria-hidden="true">*</span></label>
+            <div class="select">
+              <select id="f-formation" name="formation" required aria-describedby="f-formation-err">
+                <option value="" disabled selected>Choisir une formation</option>
+                {formations.map((f) => <option value={f.id}>{f.title}</option>)}
+                <option value="autre">Je ne sais pas encore</option>
+              </select>
+            </div>
+            <p class="field__error" id="f-formation-err"></p>
+          </div>
+
+          <fieldset class="field">
+            <legend>Créneaux préférés</legend>
+            <div class="chips">
+              {['Matin', 'Après-midi', 'Soir', 'Week-end'].map((c) => (
+                <label class="chip"><input type="checkbox" name="creneaux" value={c} /><span>{c}</span></label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="f-msg">Message</label>
+            <textarea id="f-msg" name="message" rows="3" placeholder="Votre situation, vos disponibilités, vos questions…"></textarea>
+          </div>
+
+          <div class="field field--check">
+            <label class="check">
+              <input id="f-rgpd" type="checkbox" name="rgpd" required aria-describedby="f-rgpd-err" />
+              <span>J’accepte que Phoenix Permis utilise ces informations pour me recontacter. <span aria-hidden="true">*</span></span>
+            </label>
+            <p class="field__error" id="f-rgpd-err"></p>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block form__submit">
+            <span class="form__submit-label">Envoyer ma demande</span>
+            <span class="form__spinner" aria-hidden="true"></span>
+            <Icon name="arrow" class="arrow" />
+          </button>
+          <p class="form__error-global" role="alert" hidden></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="visit" data-reveal>
+      <div class="visit__map">
+        <div class="map" data-map={osm}>
+          <svg class="map__art" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="600" height="360" fill="#14243a" />
+            <g stroke="#22354e" stroke-width="14" fill="none" stroke-linecap="round">
+              <path d="M-20 90 L620 150" /><path d="M-20 280 L620 220" /><path d="M140 -20 L200 380" /><path d="M430 -20 L380 380" />
+            </g>
+            <g stroke="#1c2d44" stroke-width="6" fill="none">
+              <path d="M-20 30 L620 60" /><path d="M-20 330 L620 320" /><path d="M60 -20 L90 380" /><path d="M290 -20 L300 380" /><path d="M530 -20 L520 380" />
+            </g>
+            <path d="M-20 200 C 150 180, 260 120, 620 120" stroke="rgba(245,165,36,.4)" stroke-width="5" fill="none" stroke-dasharray="10 10" />
+            <circle cx="300" cy="170" r="46" fill="rgba(226,82,31,.18)" class="map__pulse" />
+          </svg>
+          <span class="map__pin" aria-hidden="true"><Icon name="pin" /></span>
+          <button type="button" class="btn btn--light map__load" data-map-load>
+            <Icon name="pin" /> Afficher la carte interactive
+          </button>
+          <p class="map__note">La carte est fournie par OpenStreetMap et ne se charge qu’à votre demande.</p>
+        </div>
+      </div>
+
+      <div class="visit__info">
+        <div>
+          <h3 class="visit__title"><Icon name="pin" /> L’agence</h3>
+          <p class="visit__addr">{site.address.street}<br />{site.address.postalCode} {site.address.city}</p>
+          <a href={directions} class="visit__link" target="_blank" rel="noopener">Itinéraire <Icon name="arrow" /><span class="sr-only">(nouvel onglet)</span></a>
+        </div>
+        <div>
+          <h3 class="visit__title"><Icon name="phone" /> Téléphone</h3>
+          <p class="visit__addr"><a href={`tel:${site.phoneHref}`} class="visit__phone">{site.phone}</a></p>
+          <p class="visit__note">Note Google {site.google.rating.toLocaleString('fr-FR')}/5 · {site.google.reviews} avis</p>
+        </div>
+        <div>
+          <h3 class="visit__title"><Icon name="clock" /> Horaires de l’accueil</h3>
+          <ul role="list" class="visit__list">
+            {site.hours.map((h) => <li><span>{h.days}</span> <strong>{h.time}</strong></li>)}
+          </ul>
+          <p class="visit__note">{site.drivingHours}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact { overflow: clip; }
+  .contact__glow {
+    position: absolute; width: 60vmax; height: 60vmax; right: -25vmax; top: -10vmax;
+    background: radial-gradient(circle, rgba(226, 82, 31, 0.2), transparent 60%); pointer-events: none;
+  }
+  .contact__grid { position: relative; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: start; }
+
+  .contact__quick { display: grid; gap: var(--s-3); margin-top: var(--s-7); }
+  .quick {
+    display: flex; align-items: center; gap: var(--s-4);
+    padding: var(--s-4); border-radius: var(--r-md);
+    box-shadow: inset 0 0 0 1px var(--line-dark);
+    transition: box-shadow var(--t-med), background var(--t-med), transform var(--t-med) var(--ease-out);
+  }
+  .quick:hover { background: rgba(243, 245, 248, 0.04); box-shadow: inset 0 0 0 1px rgba(245, 165, 36, 0.4); transform: translateX(4px); }
+  .quick__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(245, 165, 36, 0.1); color: var(--amber); flex: none; }
+  .quick__label { display: block; font-size: var(--fs-xs); color: var(--on-dark-muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .quick__value { display: block; font-weight: 600; font-size: 1.05rem; overflow-wrap: anywhere; }
+
+  /* Form */
+  .form-card {
+    background: var(--cream); color: var(--ink);
+    border-radius: var(--r-xl);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+  }
+  .form__title { font-size: var(--fs-lg); }
+  .form__hint { font-size: var(--fs-xs); color: var(--fg-muted); margin-top: 4px; }
+  .form__fields { display: grid; gap: var(--s-4); }
+  .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+  .form__summary {
+    padding: var(--s-4); border-radius: var(--r-sm);
+    background: #fdecea; color: var(--danger); font-size: var(--fs-sm); font-weight: 500;
+  }
+  .form__summary ul { margin-top: 6px; padding-left: 18px; }
+  .form__summary a { text-decoration: underline; }
+
+  .field { display: grid; gap: 6px; align-content: start; border: 0; padding: 0; min-width: 0; }
+  .field label, .field legend { font-size: var(--fs-sm); font-weight: 600; }
+  .field legend { margin-bottom: 8px; }
+  .field input:not([type='checkbox']), .field select, .field textarea {
+    width: 100%; min-height: 52px; padding: 12px 16px;
+    font-size: 1rem; /* évite le zoom iOS */
+    border-radius: 12px; border: 1.5px solid var(--sand-2);
+    background: var(--paper);
+    transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  }
+  .field textarea { resize: vertical; min-height: 96px; }
+  .field input:hover, .field select:hover, .field textarea:hover { border-color: #c9c0b2; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--ember); box-shadow: 0 0 0 4px rgba(194, 58, 23, 0.15);
+  }
+  .field [aria-invalid='true'] { border-color: var(--danger) !important; }
+  .field__help { font-size: var(--fs-xs); color: var(--fg-muted); }
+  .field__error { font-size: var(--fs-xs); color: var(--danger); font-weight: 600; min-height: 0; }
+  .field__error:empty { display: none; }
+
+  .select { position: relative; }
+  .select select { appearance: none; padding-right: 44px; cursor: pointer; }
+  .select::after {
+    content: ''; position: absolute; right: 18px; top: 50%; width: 9px; height: 9px;
+    border-right: 2px solid var(--fg-muted); border-bottom: 2px solid var(--fg-muted);
+    transform: translateY(-70%) rotate(45deg); pointer-events: none;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .chip span {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+    border-radius: var(--r-pill); font-size: var(--fs-sm); font-weight: 500;
+    box-shadow: inset 0 0 0 1.5px var(--sand-2); background: var(--paper);
+    transition: background var(--t-fast), color var(--t-fast), box-shadow var(--t-fast);
+  }
+  .chip input:checked + span { background: var(--ink); color: var(--on-dark); box-shadow: none; }
+  .chip input:focus-visible + span { outline: 3px solid var(--ring); outline-offset: 2px; }
+
+  .check { display: flex; gap: 12px; align-items: flex-start; font-size: var(--fs-sm); color: var(--fg-muted); cursor: pointer; }
+  .check input { flex: none; width: 22px; height: 22px; margin-top: 1px; accent-color: var(--ember); cursor: pointer; }
+
+  .form__submit { margin-top: var(--s-2); min-height: 56px; }
+  .form__spinner {
+    display: none; width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.35); border-top-color: #fff;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .form.is-loading .form__spinner { display: inline-block; }
+  .form.is-loading .form__submit :global(.arrow) { display: none; }
+  .form.is-loading .form__submit { pointer-events: none; opacity: 0.85; }
+  .form__error-global { color: var(--danger); font-size: var(--fs-sm); font-weight: 600; }
+
+  .form__success { text-align: center; padding: var(--s-7) var(--s-4); }
+  .form__success:not([hidden]) { display: grid; justify-items: center; gap: var(--s-3); animation: pop 0.7s var(--ease-spring); }
+  .form__success h3 { font-size: var(--fs-xl); }
+  .form__success p { color: var(--fg-muted); max-width: 36ch; }
+  .form__success-icon {
+    display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, #2e9e64, #1f7a4d); color: #fff;
+  }
+  .form__success-icon :global(.icon) { width: 34px; height: 34px; stroke-width: 2.5; }
+  @keyframes pop { from { opacity: 0; transform: scale(0.9); } }
+
+  /* Visit */
+  .visit {
+    margin-top: var(--section-y);
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--s-4);
+    border-radius: var(--r-xl); overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--line-dark);
+    background: var(--ink-2);
+  }
+  .visit__map { position: relative; min-height: 380px; }
+  .map { position: absolute; inset: 0; display: grid; place-items: center; }
+  .map__art { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .map__pulse { transform-origin: 300px 170px; animation: map-pulse 2.6s var(--ease-out) infinite; }
+  @keyframes map-pulse { from { transform: scale(0.4); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+  .map__pin {
+    position: absolute; left: 50%; top: 47%; translate: -50% -100%;
+    display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50% 50% 50% 0; rotate: -45deg;
+    background: var(--grad-fire); color: var(--ink);
+    box-shadow: 0 12px 30px -6px rgba(226, 82, 31, 0.7);
+  }
+  .map__pin :global(.icon) { rotate: 45deg; width: 24px; height: 24px; }
+  .map__load { position: absolute; bottom: 56px; left: 50%; translate: -50% 0; }
+  .map__note { position: absolute; bottom: 16px; left: 16px; right: 16px; text-align: center; font-size: 0.75rem; color: var(--on-dark-muted); }
+  .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: saturate(0.85); }
+
+  .visit__info { display: grid; gap: var(--s-6); padding: clamp(1.5rem, 1rem + 2vw, 3rem); align-content: center; }
+  .visit__title { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .visit__title :global(.icon) { width: 20px; height: 20px; color: var(--amber); }
+  .visit__addr { margin-top: var(--s-2); color: var(--on-dark-muted); }
+  .visit__link { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--s-2); min-height: 44px; color: var(--amber); font-weight: 600; }
+  .visit__link :global(.icon) { width: 16px; height: 16px; transition: transform var(--t-med) var(--ease-out); }
+  .visit__link:hover :global(.icon) { transform: translateX(4px); }
+  .visit__list { margin-top: var(--s-3); display: grid; gap: 8px; font-size: var(--fs-sm); }
+  .visit__list li { display: flex; justify-content: space-between; gap: var(--s-4); padding-bottom: 8px; border-bottom: 1px solid var(--line-dark); color: var(--on-dark-muted); }
+  .visit__list strong { color: var(--on-dark); font-weight: 600; text-align: right; }
+  .visit__note { margin-top: var(--s-3); font-size: var(--fs-sm); color: var(--amber); }
+  .visit__phone { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--on-dark); letter-spacing: -0.02em; }
+  .visit__phone:hover { color: var(--amber); }
+
+  @media (max-width: 980px) {
+    .contact__grid, .visit { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .form__row { grid-template-columns: 1fr; }
+    .visit__map { min-height: 320px; }
+    .map__load { width: calc(100% - 32px); bottom: 64px; }
+  }
+</style>
+
+<script>
+  /* ───────── Carte : chargement à la demande (RGPD + performance) ───────── */
+  const mapBtn = document.querySelector<HTMLButtonElement>('[data-map-load]');
+  mapBtn?.addEventListener('click', () => {
+    const wrap = mapBtn.closest<HTMLElement>('[data-map]')!;
+    const iframe = document.createElement('iframe');
+    iframe.src = wrap.dataset.map!;
+    iframe.title = 'Plan d’accès à l’agence Phoenix Permis, Bobigny';
+    iframe.loading = 'lazy';
+    wrap.replaceChildren(iframe);
+  });
+
+  /* ───────── Formulaire ───────── */
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  if (form) {
+    const messages: Record<string, (el: HTMLInputElement) => string> = {
+      prenom: (el) => (el.value.trim() ? '' : 'Indiquez votre prénom.'),
+      nom: (el) => (el.value.trim() ? '' : 'Indiquez votre nom.'),
+      telephone: (el) =>
+        !el.value.trim()
+          ? 'Indiquez un numéro pour que nous puissions vous rappeler.'
+          : el.validity.patternMismatch
+            ? 'Ce numéro ne semble pas valide. Format attendu : 06 12 34 56 78.'
+            : '',
+      email: (el) => (el.value && el.validity.typeMismatch ? 'Adresse e-mail invalide. Exemple : prenom@mail.fr' : ''),
+      formation: (el) => (el.value ? '' : 'Choisissez une formation (ou « Je ne sais pas encore »).'),
+      rgpd: (el) => (el.checked ? '' : 'Merci d’accepter d’être recontacté pour envoyer votre demande.'),
+    };
+
+    const validate = (el: HTMLInputElement) => {
+      const rule = messages[el.name];
+      if (!rule) return '';
+      const msg = rule(el);
+      const err = form.querySelector<HTMLElement>(`#${el.getAttribute('aria-describedby')?.split(' ').find((id) => id.endsWith('-err'))}`);
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (err) err.textContent = msg;
+      return msg;
+    };
+
+    form.querySelectorAll<HTMLInputElement>('input, select').forEach((el) => {
+      el.addEventListener('blur', () => validate(el));
+      el.addEventListener('input', () => el.getAttribute('aria-invalid') === 'true' && validate(el));
+      el.addEventListener('change', () => el.getAttribute('aria-invalid') === 'true' && validate(el));
+    });
+
+    const summary = form.querySelector<HTMLElement>('.form__summary')!;
+    const globalErr = form.querySelector<HTMLElement>('.form__error-global')!;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      globalErr.hidden = true;
+      const fields = Array.from(form.querySelectorAll<HTMLInputElement>('input, select')).filter((el) => messages[el.name]);
+      const errors = fields.map((el) => ({ el, msg: validate(el) })).filter((x) => x.msg);
+
+      if (errors.length) {
+        summary.hidden = false;
+        summary.innerHTML = `<strong>${errors.length > 1 ? `${errors.length} champs à corriger` : '1 champ à corriger'} :</strong><ul>${errors
+          .map((x) => `<li><a href="#${x.el.id || x.el.name}">${x.msg}</a></li>`)
+          .join('')}</ul>`;
+        if (errors.length > 1) summary.focus();
+        else errors[0].el.focus();
+        return;
+      }
+      summary.hidden = true;
+
+      const data = new FormData(form);
+      const payload: Record<string, string> = {};
+      data.forEach((v, k) => (payload[k] = payload[k] ? `${payload[k]}, ${v}` : String(v)));
+      const formationLabel = form.querySelector<HTMLSelectElement>('#f-formation')!.selectedOptions[0]?.text ?? '';
+
+      const endpoint = form.dataset.endpoint;
+      form.classList.add('is-loading');
+      try {
+        if (endpoint) {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ ...payload, formation: formationLabel }),
+          });
+          if (!res.ok) throw new Error(String(res.status));
+        } else {
+          const text = [
+            `Bonjour Phoenix Permis, je souhaite réserver une évaluation.`,
+            `Nom : ${payload.prenom} ${payload.nom}`,
+            `Tél : ${payload.telephone}`,
+            payload.email && `E-mail : ${payload.email}`,
+            `Formation : ${formationLabel}`,
+            payload.creneaux && `Créneaux : ${payload.creneaux}`,
+            payload.message && `Message : ${payload.message}`,
+          ]
+            .filter(Boolean)
+            .join('\n');
+          if (form.dataset.whatsapp) {
+            window.open(`https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+          } else if (form.dataset.email) {
+            window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Demande d’évaluation')}&body=${encodeURIComponent(text)}`;
+          } else {
+            // Aucun canal d'envoi configuré : on invite à appeler plutôt que de perdre la demande
+            throw new Error('no-channel');
+          }
+        }
+        const success = form.querySelector<HTMLElement>('.form__success')!;
+        form.querySelector<HTMLElement>('.form__fields')!.hidden = true;
+        success.hidden = false;
+        success.focus();
+      } catch (err) {
+        globalErr.hidden = false;
+        const tel = `<a href="tel:${form.dataset.phoneHref}" style="text-decoration:underline">${form.dataset.phone}</a>`;
+        globalErr.innerHTML =
+          (err as Error).message === 'no-channel'
+            ? `L’envoi en ligne arrive bientôt. En attendant, appelez-nous au ${tel} : nous réservons votre évaluation directement.`
+            : `L’envoi a échoué. Vérifiez votre connexion et réessayez, ou appelez-nous au ${tel}.`;
+      } finally {
+        form.classList.remove('is-loading');
+      }
+    });
+  }
+</script>

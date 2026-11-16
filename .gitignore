@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# Local only: sales email (personal phone number) and screenshots
+demo-captures/
+# Local editor/agent config
+.claude/
+.env*
+.vercel/

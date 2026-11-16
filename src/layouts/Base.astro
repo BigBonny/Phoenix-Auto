@@ -1,0 +1,93 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/inter';
+import '@fontsource/instrument-serif/400-italic.css';
+import '../styles/global.css';
+import { site, faq } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = `${site.name} · Auto-école à Bobigny (93) — Permis B, boîte auto, conduite accompagnée`,
+  description = site.description,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'DrivingSchool',
+      '@id': `${site.url}/#ecole`,
+      name: site.name,
+      description: site.description,
+      url: site.url,
+      telephone: site.phoneHref,
+      ...(site.email ? { email: site.email } : {}),
+      sameAs: [site.google.url],
+      hasMap: site.google.url,
+      priceRange: '€€',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.address.street,
+        postalCode: site.address.postalCode,
+        addressLocality: site.address.city,
+        addressRegion: 'Île-de-France',
+        addressCountry: 'FR',
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: site.address.lat, longitude: site.address.lng },
+      areaServed: ['Bobigny', 'Drancy', 'Pantin', 'Noisy-le-Sec', 'Bondy', 'Romainville', 'Aubervilliers'],
+      openingHoursSpecification: site.openingHoursSpec.map((h) => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: h.days,
+        opens: h.opens,
+        closes: h.closes,
+      })),
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0e1a2b" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', Astro.site ?? site.url).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Active les animations uniquement si JS est disponible (pas de contenu caché sans JS) -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+    <slot />
+    <script>
+      import '../scripts/motion.ts';
+    </script>
+  </body>
+</html>

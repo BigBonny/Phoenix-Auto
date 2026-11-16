@@ -1,0 +1,355 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+const embers = Array.from({ length: 14 }, (_, i) => i);
+---
+<section class="hero on-dark" id="top" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__glow hero__glow--1" data-parallax="0.08"></div>
+    <div class="hero__glow hero__glow--2" data-parallax="-0.05"></div>
+    <div class="hero__grid"></div>
+    <div class="hero__embers">
+      {embers.map((i) => <span style={`--k:${i};--sz:${3 + (i * 7) % 4}px;--dur:${7 + (i * 13) % 6}s;--dx:${((i * 37) % 80) - 40}px`}></span>)}
+    </div>
+    <svg class="hero__road" viewBox="0 0 1440 260" preserveAspectRatio="none">
+      <path class="hero__road-base" d="M-20 250 C 300 230, 520 120, 820 130 S 1300 60, 1460 10" />
+      <path class="hero__road-line" d="M-20 250 C 300 230, 520 120, 820 130 S 1300 60, 1460 10" />
+    </svg>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="hero__badge hero-in" style="--d:0">
+        <span class="hero__dot"></span>
+        Auto-école à Bobigny · Seine-Saint-Denis
+      </p>
+
+      <h1 id="hero-title" class="hero__title" data-split style="--d:120ms">
+        Décrochez votre permis. <span class="serif fire-text">Prenez votre envol.</span>
+      </h1>
+
+      <p class="hero__lead hero-in" style="--d:500ms">
+        Code, conduite manuelle ou automatique, conduite accompagnée : des moniteurs diplômés d’État,
+        un suivi sur-mesure et une équipe à l’écoute, au cœur de Bobigny.
+      </p>
+
+      <div class="hero__ctas hero-in" style="--d:650ms">
+        <a href="#contact" class="btn btn--primary" data-magnetic>
+          Réserver mon évaluation
+          <Icon name="arrow" class="arrow" />
+        </a>
+        <a href="#tarifs" class="btn btn--ghost">Voir les tarifs</a>
+      </div>
+
+      <ul class="hero__trust hero-in" style="--d:800ms" role="list">
+        <li><Icon name="shield" /> Agréée par la Préfecture</li>
+        <li><Icon name="wallet" /> Éligible CPF · 4× sans frais</li>
+        <li><Icon name="star" /> {site.google.rating.toLocaleString('fr-FR')}/5 · {site.google.reviews} avis Google</li>
+      </ul>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <div class="hero__mark" data-parallax="-0.06">
+        <svg viewBox="0 0 64 64">
+          <defs>
+            <linearGradient id="hero-fire" x1="0" y1="1" x2="0.4" y2="0">
+              <stop offset="0" stop-color="#c23a17" />
+              <stop offset="0.55" stop-color="#e2521f" />
+              <stop offset="1" stop-color="#f5a524" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#hero-fire)" stroke-width="0.6" stroke-linejoin="round">
+            <path pathLength="1" d="M32 40C26 34 15 34 6 19c6 3 11 3 15 1-4-4-6-9-5.5-15C21.5 13 28 20 32 30Z" />
+            <path pathLength="1" d="M32 40c6-6 17-6 26-21-6 3-11 3-15 1 4-4 6-9 5.5-15C42.5 13 36 20 32 30Z" />
+            <path pathLength="1" d="M32 38c-4 6-4.5 13 0 22 4.5-9 4-16 0-22Z" />
+            <circle pathLength="1" cx="32" cy="21" r="3.6" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="hcard hcard--lesson" style="--d:700ms">
+        <div class="hcard__head">
+          <span class="hcard__label">Prochaine leçon</span>
+          <span class="hcard__pill">Confirmée</span>
+        </div>
+        <div class="hcard__lesson">
+          <div class="hcard__avatar">A</div>
+          <div>
+            <p class="hcard__title">Mardi · 14h00 – 16h00</p>
+            <p class="hcard__meta">Avec Amadou · Départ agence {site.address.city}</p>
+          </div>
+        </div>
+        <div class="hcard__route">
+          <Icon name="route" />
+          <span>Parcours d’examen · Bobigny – Drancy</span>
+        </div>
+      </div>
+
+      <div class="hcard hcard--progress" style="--d:900ms">
+        <div class="hcard__ring">
+          <svg viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="34" class="ring-bg" />
+            <circle cx="40" cy="40" r="34" class="ring-fg" pathLength="100" />
+          </svg>
+          <span>78<small>%</small></span>
+        </div>
+        <div>
+          <p class="hcard__label">Progression</p>
+          <ul class="hcard__skills" role="list">
+            <li class="done"><Icon name="check" /> Maîtrise du véhicule</li>
+            <li class="done"><Icon name="check" /> Circulation en ville</li>
+            <li><span class="dot"></span> Voies rapides</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hcard hcard--win" style="--d:1100ms">
+        <span class="hcard__check"><Icon name="check" /></span>
+        <div>
+          <p class="hcard__title">Permis obtenu !</p>
+          <p class="hcard__meta">Du premier coup</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#formations" class="hero__scroll" aria-label="Découvrir nos formations">
+    <span></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex; align-items: center;
+    background: var(--ink);
+    color: var(--on-dark);
+    overflow: clip;
+    padding-top: calc(110px + env(safe-area-inset-top));
+    padding-bottom: clamp(5rem, 4rem + 6vw, 8rem);
+  }
+
+  /* Background */
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero__glow { position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform; }
+  .hero__glow--1 {
+    width: 60vmax; height: 60vmax; right: -18vmax; top: -16vmax;
+    background: radial-gradient(circle, rgba(226, 82, 31, 0.42), rgba(194, 58, 23, 0.12) 55%, transparent 70%);
+    animation: breathe 9s var(--ease-in-out) infinite alternate;
+  }
+  .hero__glow--2 {
+    width: 40vmax; height: 40vmax; left: -14vmax; bottom: -18vmax;
+    background: radial-gradient(circle, rgba(245, 165, 36, 0.2), transparent 65%);
+    animation: breathe 11s var(--ease-in-out) infinite alternate-reverse;
+  }
+  @keyframes breathe { from { opacity: 0.75; scale: 1; } to { opacity: 1; scale: 1.12; } }
+
+  .hero__grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(243, 245, 248, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(243, 245, 248, 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 20%, transparent 75%);
+  }
+
+  .hero__embers span {
+    position: absolute; bottom: -10px;
+    left: calc(8% + var(--k) * 6.5%);
+    width: var(--sz); aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 10px 2px rgba(245, 165, 36, 0.7);
+    opacity: 0;
+    animation: rise var(--dur) linear infinite;
+    animation-delay: calc(var(--k) * -0.9s);
+  }
+  @keyframes rise {
+    0% { transform: translate3d(0, 0, 0); opacity: 0; }
+    10% { opacity: 0.9; }
+    70% { opacity: 0.5; }
+    100% { transform: translate3d(var(--dx), -95vh, 0); opacity: 0; }
+  }
+
+  .hero__road {
+    position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: clamp(120px, 20vw, 260px);
+  }
+  .hero__road-base { fill: none; stroke: rgba(243, 245, 248, 0.06); stroke-width: 70; }
+  .hero__road-line {
+    fill: none; stroke: rgba(245, 165, 36, 0.55); stroke-width: 2.5;
+    stroke-dasharray: 22 26;
+    animation: drive 2.4s linear infinite;
+  }
+  @keyframes drive { to { stroke-dashoffset: -96; } }
+
+  /* Layout */
+  .hero__inner {
+    position: relative;
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: center; gap: clamp(2rem, 1rem + 4vw, 5rem);
+  }
+  .hero__copy { max-width: 720px; }
+
+  .hero__badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px 8px 12px; border-radius: var(--r-pill);
+    background: rgba(243, 245, 248, 0.06);
+    box-shadow: inset 0 0 0 1px var(--line-dark);
+    font-size: var(--fs-xs); font-weight: 500; letter-spacing: 0.02em;
+    color: var(--on-dark-muted);
+  }
+  .hero__dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--flame);
+    box-shadow: 0 0 0 0 rgba(238, 106, 44, 0.6);
+    animation: pulse 2.2s var(--ease-out) infinite;
+  }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(238, 106, 44, 0); } 100% { box-shadow: 0 0 0 0 rgba(238, 106, 44, 0); } }
+
+  .hero__title {
+    margin-top: var(--s-5);
+    font-size: var(--fs-hero);
+    font-weight: 750;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+  .hero__title .serif { display: inline; font-size: 1.06em; letter-spacing: -0.02em; line-height: 0.9; }
+
+  .hero__lead {
+    margin-top: var(--s-5);
+    max-width: 560px;
+    font-size: var(--fs-md);
+    color: var(--on-dark-muted);
+  }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+  .hero__trust {
+    display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5);
+    margin-top: var(--s-6); padding-top: var(--s-5);
+    border-top: 1px solid var(--line-dark);
+    font-size: var(--fs-sm); color: var(--on-dark-muted);
+  }
+  .hero__trust li { display: inline-flex; align-items: center; gap: 8px; }
+  .hero__trust :global(.icon) { width: 18px; height: 18px; color: var(--amber); }
+
+  /* Entrance (déclenchée par html.is-loaded) */
+  :global(.js) .hero-in, :global(.js) .hcard {
+    opacity: 0; transform: translate3d(0, 24px, 0);
+    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  :global(.is-loaded) .hero-in, :global(.is-loaded) .hcard { opacity: 1; transform: none; }
+
+  /* Visual */
+  .hero__visual { position: relative; aspect-ratio: 1 / 1.05; max-width: 520px; width: 100%; justify-self: end; }
+  /* Phoenix : dans l'espace libre en haut à droite, au-dessus des cartes */
+  .hero__mark { position: absolute; width: 56%; aspect-ratio: 1; top: -20%; right: -16%; opacity: 0.95; }
+  .hero__mark svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 18px rgba(226, 82, 31, 0.45)); }
+  .hero__mark path, .hero__mark circle {
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    transition: stroke-dashoffset 2.6s var(--ease-in-out) 0.3s;
+  }
+  :global(.is-loaded) .hero__mark path, :global(.is-loaded) .hero__mark circle { stroke-dashoffset: 0; }
+  :global(html:not(.js)) .hero__mark path, :global(html:not(.js)) .hero__mark circle { stroke-dashoffset: 0; }
+
+  .hcard {
+    position: absolute;
+    border-radius: 20px;
+    padding: 18px 20px;
+    background: rgba(23, 38, 56, 0.72);
+    backdrop-filter: blur(18px) saturate(1.3);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    box-shadow: inset 0 0 0 1px rgba(243, 245, 248, 0.1), 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+    color: var(--on-dark);
+  }
+  .hcard__label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--on-dark-muted); font-weight: 600; }
+  .hcard__title { font-weight: 650; font-size: 1rem; line-height: 1.3; }
+  .hcard__meta { font-size: 0.8125rem; color: var(--on-dark-muted); line-height: 1.4; }
+
+  .hcard--lesson { top: 8%; left: -6%; width: min(330px, 78%); animation: float 7s var(--ease-in-out) infinite; }
+  .hcard__head { display: flex; justify-content: space-between; align-items: center; }
+  .hcard__pill {
+    font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: var(--r-pill);
+    background: rgba(31, 122, 77, 0.22); color: #7fe0ae;
+  }
+  .hcard__lesson { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+  .hcard__avatar {
+    flex: none; width: 42px; height: 42px; border-radius: 50%;
+    display: grid; place-items: center; font-weight: 700; color: var(--ink);
+    background: var(--grad-fire);
+  }
+  .hcard__route {
+    display: flex; align-items: center; gap: 8px; margin-top: 14px; padding-top: 12px;
+    border-top: 1px solid var(--line-dark);
+    font-size: 0.8125rem; color: var(--on-dark-muted);
+  }
+  .hcard__route :global(.icon) { width: 16px; height: 16px; color: var(--amber); }
+
+  .hcard--progress {
+    right: -4%; top: 46%; width: min(310px, 74%);
+    display: flex; align-items: center; gap: 16px;
+    animation: float 8s var(--ease-in-out) -2s infinite;
+  }
+  .hcard__ring { position: relative; flex: none; width: 76px; height: 76px; }
+  .hcard__ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .hcard__ring circle { fill: none; stroke-width: 7; }
+  .ring-bg { stroke: rgba(243, 245, 248, 0.1); }
+  .ring-fg {
+    stroke: var(--flame); stroke-linecap: round;
+    stroke-dasharray: 100; stroke-dashoffset: 100;
+    transition: stroke-dashoffset 2s var(--ease-out) 1.2s;
+  }
+  :global(.is-loaded) .ring-fg, :global(html:not(.js)) .ring-fg { stroke-dashoffset: 22; }
+  .hcard__ring span {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; white-space: nowrap;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.25rem;
+  }
+  .hcard__ring small { font-size: 0.7em; }
+  .hcard__skills { display: grid; gap: 4px; margin-top: 6px; font-size: 0.8125rem; color: var(--on-dark-muted); }
+  .hcard__skills li { display: flex; align-items: center; gap: 6px; }
+  .hcard__skills li.done { color: var(--on-dark); }
+  .hcard__skills :global(.icon) { width: 14px; height: 14px; color: #7fe0ae; }
+  .hcard__skills .dot { width: 14px; height: 14px; display: grid; place-items: center; }
+  .hcard__skills .dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+
+  .hcard--win {
+    left: 6%; bottom: 4%;
+    display: flex; align-items: center; gap: 12px;
+    animation: float 6s var(--ease-in-out) -4s infinite;
+  }
+  .hcard__check {
+    display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, #2e9e64, #1f7a4d); color: #fff;
+  }
+  .hcard__check :global(.icon) { width: 20px; height: 20px; stroke-width: 2.5; }
+
+  @keyframes float { 50% { translate: 0 -10px; } }
+
+  /* Scroll cue */
+  .hero__scroll {
+    position: absolute; left: 50%; bottom: 28px; translate: -50% 0;
+    width: 30px; height: 48px; border-radius: 20px;
+    box-shadow: inset 0 0 0 1.5px rgba(243, 245, 248, 0.3);
+    display: grid; justify-items: center; padding-top: 9px;
+  }
+  .hero__scroll span { width: 4px; height: 10px; border-radius: 4px; background: var(--amber); animation: cue 1.8s var(--ease-in-out) infinite; }
+  @keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(14px); opacity: 0; } 100% { opacity: 0; } }
+
+  @media (max-width: 960px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__visual { justify-self: center; max-width: 440px; margin-top: var(--s-4); }
+    .hero__mark { width: 44%; top: auto; bottom: -6%; right: -4%; }
+    .hero__scroll { display: none; }
+  }
+  @media (max-width: 520px) {
+    .hero__visual { aspect-ratio: 1 / 1.32; }
+    .hcard { padding: 14px 16px; }
+    .hcard--lesson { left: 0; top: 4%; width: 86%; }
+    .hcard--progress { right: 0; top: 46%; width: 82%; }
+    .hcard--win { left: 2%; bottom: 1%; }
+    .hero__ctas .btn { flex: 1 1 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__embers { display: none; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import { site } from '../data/site';
+---
+<Base title={`Mentions légales · ${site.name}`} description={`Mentions légales et politique de confidentialité de ${site.name}, auto-école à Bobigny.`}>
+  <main id="contenu" class="legal">
+    <div class="container legal__inner">
+      <a href="/" class="legal__back" aria-label="Retour à l’accueil"><Logo size={36} id="lgl" /></a>
+      <h1>Mentions légales</h1>
+      <p class="legal__todo">Contenu à compléter avec les informations officielles de l’entreprise.</p>
+
+      <h2>Éditeur du site</h2>
+      <p>{site.name} — {site.address.street}, {site.address.postalCode} {site.address.city}<br />
+        SIRET : {site.siret} · Agrément préfectoral n° {site.agrement}<br />
+        Téléphone : {site.phone}{site.email && ` · E-mail : ${site.email}`}<br />
+        Directeur de la publication : [Nom du gérant]</p>
+
+      <h2>Hébergement</h2>
+      <p>[Nom de l’hébergeur, adresse, téléphone]</p>
+
+      <h2 id="confidentialite">Confidentialité & données personnelles</h2>
+      <p>Les informations transmises via le formulaire de contact (nom, prénom, téléphone, e-mail, formation souhaitée) sont utilisées uniquement pour vous recontacter au sujet de votre demande. Elles ne sont ni cédées ni revendues et sont conservées au maximum 3 ans après le dernier contact.</p>
+      <p>Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données en contactant l’agence au {site.phone} ou à l’adresse ci-dessus.</p>
+      <p>Ce site n’utilise aucun cookie de suivi. La carte OpenStreetMap n’est chargée qu’à votre demande.</p>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .legal { padding-block: 64px 96px; }
+  .legal__inner { max-width: 760px; }
+  .legal__back { display: inline-flex; margin-bottom: 48px; }
+  h1 { font-size: var(--fs-2xl); }
+  h2 { font-size: var(--fs-lg); margin-top: 40px; margin-bottom: 12px; }
+  p { color: var(--fg-muted); margin-top: 12px; }
+  .legal__todo { padding: 12px 16px; border-radius: 12px; background: var(--sand); color: var(--ink); font-weight: 500; }
+</style>
