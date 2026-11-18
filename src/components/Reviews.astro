@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import Clip from './Clip.astro';
 import { reviews, reviewThemes, site } from '../data/site';
 const { rating, reviews: total, distribution } = site.google;
 const maxTheme = Math.max(...reviewThemes.map((t) => t.count));
@@ -77,6 +78,7 @@ const maxTheme = Math.max(...reviewThemes.map((t) => t.count));
       </div>
 
       <a href={site.google.url} class="review-cta" target="_blank" rel="noopener" data-reveal style="--i:2">
+        <span class="review-cta__media" aria-hidden="true"><Clip id="05-reussite" /></span>
         <span class="review-cta__score">{rating.toLocaleString('fr-FR')}<small>/5</small></span>
         <span class="review-cta__stars" aria-hidden="true">{[0, 1, 2, 3, 4].map(() => <Icon name="star" />)}</span>
         <span class="review-cta__text">{total} élèves nous ont notés sur Google. Lisez leurs témoignages, sans filtre.</span>
@@ -175,13 +177,16 @@ const maxTheme = Math.max(...reviewThemes.map((t) => t.count));
     background: var(--ink); color: var(--on-dark-muted);
     transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med);
   }
-  .review-cta::before {
-    content: ''; position: absolute; width: 260px; height: 260px; right: -90px; top: -110px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(34, 180, 85, 0.4), transparent 65%); pointer-events: none;
+  .review-cta { min-height: 420px; }
+  .review-cta__media { position: absolute; inset: 0; }
+  .review-cta__media::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(11, 29, 21, 0.96) 0%, rgba(11, 29, 21, 0.8) 38%, rgba(11, 29, 21, 0.1) 75%);
   }
+  .review-cta > :not(.review-cta__media) { position: relative; }
   .review-cta:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
   .review-cta__score {
-    position: relative; font-family: var(--font-display); font-weight: 750; font-size: 3.5rem; line-height: 1;
+    font-family: var(--font-display); font-weight: 750; font-size: 3.5rem; line-height: 1;
     letter-spacing: -0.05em; color: var(--on-dark);
   }
   .review-cta__score small { font-size: 0.4em; color: var(--on-dark-muted); letter-spacing: 0; }

@@ -87,6 +87,8 @@ export type Formation = {
   points: string[];
   icon: 'car' | 'auto' | 'family' | 'book' | 'bolt' | 'switch';
   featured?: boolean;
+  /** Clip d'illustration (public/clips/<clip>.mp4) */
+  clip?: string;
 };
 
 export const formations: Formation[] = [
@@ -98,6 +100,7 @@ export const formations: Formation[] = [
     points: ['20 h de conduite minimum', 'Code en ligne illimité', 'Accompagnement à l’examen'],
     icon: 'car',
     featured: true,
+    clip: '02-conduite',
   },
   {
     id: 'boite-auto',
@@ -106,6 +109,7 @@ export const formations: Formation[] = [
     text: 'Moins d’heures, moins de stress : idéal pour se concentrer sur la route. Permis en 13 h minimum.',
     points: ['13 h minimum', 'Passerelle vers la manuelle possible'],
     icon: 'auto',
+    clip: '03-boite-auto',
   },
   {
     id: 'aac',
@@ -122,6 +126,7 @@ export const formations: Formation[] = [
     text: 'Plateforme d’entraînement en ligne illimitée, cours thématiques en agence et inscription à l’examen du code.',
     points: ['Accès 24h/24', 'Examens blancs'],
     icon: 'book',
+    clip: '06-code',
   },
   {
     id: 'accelere',

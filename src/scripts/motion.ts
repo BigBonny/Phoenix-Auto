@@ -190,6 +190,41 @@ if (hero) {
   new IntersectionObserver(([e]) => hero.classList.toggle('is-off', !e.isIntersecting)).observe(hero);
 }
 
+/* ───────── Clips vidéo : chargés à l'approche, lus seulement à l'écran ───────── */
+const clips = Array.from(document.querySelectorAll<HTMLVideoElement>('video[data-clip]'));
+if (clips.length) {
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+  const canPlay = !reduce && !saveData;
+  const near = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const v = e.target as HTMLVideoElement;
+        if (v.dataset.poster) v.poster = v.dataset.poster;
+        near.unobserve(v);
+      });
+    },
+    { rootMargin: '600px 0px' },
+  );
+  const visible = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting && canPlay && !document.hidden) v.play().catch(() => {});
+        else v.pause();
+      });
+    },
+    { threshold: 0.1 },
+  );
+  clips.forEach((v) => {
+    near.observe(v);
+    visible.observe(v);
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clips.forEach((v) => v.pause());
+  });
+}
+
 /* ───────── Hero entrance ───────── */
 requestAnimationFrame(() => {
   document.documentElement.classList.add('is-loaded');

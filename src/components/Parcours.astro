@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import Clip from './Clip.astro';
 import { steps, reasons } from '../data/site';
 ---
 <section class="section section--sand parcours" id="parcours" aria-labelledby="parcours-title">
@@ -18,6 +19,7 @@ import { steps, reasons } from '../data/site';
         <a href="#contact" class="btn btn--primary parcours__cta" data-reveal style="--d:300ms" data-magnetic>
           Commencer par l’évaluation <Icon name="arrow" class="arrow" />
         </a>
+        <div class="parcours__clip" data-reveal style="--d:400ms" aria-hidden="true"><Clip id="04-parcours" /></div>
       </div>
     </div>
 
@@ -62,6 +64,10 @@ import { steps, reasons } from '../data/site';
   }
   .parcours__sticky { position: sticky; top: 120px; }
   .parcours__cta { margin-top: var(--s-6); }
+  .parcours__clip {
+    margin-top: var(--s-7); aspect-ratio: 16 / 9; overflow: hidden;
+    border-radius: var(--r-lg); background: var(--ink); box-shadow: var(--shadow-2);
+  }
 
   .timeline { position: relative; display: grid; gap: clamp(2.5rem, 2rem + 2vw, 4rem); padding-left: 0; list-style: none; --p: 0; }
   .timeline__rail {

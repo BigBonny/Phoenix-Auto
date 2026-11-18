@@ -1,0 +1,35 @@
+---
+/**
+ * Clip décoratif en boucle (public/clips/<id>.webm|.mp4 + <id>-poster.jpg).
+ * Rien n'est téléchargé tant que le clip n'approche pas de l'écran ; lecture et pause
+ * sont pilotées par src/scripts/motion.ts (pas de lecture si « réduire les animations »).
+ */
+interface Props {
+  id: string;
+  class?: string;
+  /** true = affiche l'image d'attente tout de suite (clip visible au chargement) */
+  eager?: boolean;
+}
+const { id, class: cls, eager = false } = Astro.props;
+const poster = `/clips/${id}-poster.jpg`;
+---
+<video
+  class:list={['clip', cls]}
+  muted
+  loop
+  playsinline
+  preload="none"
+  poster={eager ? poster : undefined}
+  data-poster={eager ? undefined : poster}
+  data-clip
+  aria-hidden="true"
+  tabindex="-1"
+  disablepictureinpicture
+>
+  <source src={`/clips/${id}.webm`} type="video/webm" />
+  <source src={`/clips/${id}.mp4`} type="video/mp4" />
+</video>
+
+<style>
+  .clip { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--ink); pointer-events: none; }
+</style>

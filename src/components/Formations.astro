@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import Clip from './Clip.astro';
 import { formations } from '../data/site';
 ---
 <section class="section" id="formations" aria-labelledby="formations-title">
@@ -21,6 +22,9 @@ import { formations } from '../data/site';
       {formations.map((f, i) => (
         <li class:list={['bento__item', { 'bento__item--featured': f.featured }]} data-reveal style={`--i:${i}`}>
           <article class="card spotlight bento__card">
+            {f.clip && (
+              <div class="bento__media" aria-hidden="true"><Clip id={f.clip} /></div>
+            )}
             <div class="bento__top">
               <span class="icon-badge"><Icon name={f.icon} /></span>
               <span class="bento__kicker">{f.kicker}</span>
@@ -33,11 +37,6 @@ import { formations } from '../data/site';
             <a href="#contact" class="bento__link" aria-label={`Se renseigner : ${f.title}`}>
               Se renseigner <Icon name="arrow" />
             </a>
-            {f.featured && (
-              <svg class="bento__deco" viewBox="0 0 400 200" aria-hidden="true">
-                <path d="M0 180 C 80 170, 140 90, 220 100 S 340 40, 400 20" />
-              </svg>
-            )}
           </article>
         </li>
       ))}
@@ -102,14 +101,23 @@ import { formations } from '../data/site';
   .bento__item--featured .bento__points li { box-shadow: inset 0 0 0 1px var(--line-dark); }
   .bento__item--featured .bento__points :global(.icon) { color: var(--lime); }
   .bento__item--featured .bento__link { color: var(--lime); }
-  .bento__deco {
-    position: absolute; right: -10px; bottom: -6px; width: 62%; height: auto; pointer-events: none;
+
+  /* Clips : bandeau en tête de carte ; plein cadre sur la carte vedette */
+  .bento__media {
+    --pad: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+    margin: calc(-1 * var(--pad)) calc(-1 * var(--pad)) var(--s-5);
+    aspect-ratio: 16 / 8; overflow: hidden; background: var(--ink);
   }
-  .bento__deco path {
-    fill: none; stroke: rgba(181, 240, 74, 0.35); stroke-width: 2; stroke-dasharray: 10 12;
-    animation: drive-deco 3s linear infinite;
+  .bento__item--featured .bento__media {
+    position: absolute; inset: 0; margin: 0; aspect-ratio: auto;
   }
-  @keyframes drive-deco { to { stroke-dashoffset: -44; } }
+  .bento__item--featured .bento__media::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(11, 29, 21, 0.95) 0%, rgba(11, 29, 21, 0.82) 42%, rgba(11, 29, 21, 0.25) 100%),
+      linear-gradient(to top, rgba(11, 29, 21, 0.7), transparent 45%);
+  }
+  .bento__item--featured .bento__card > :not(.bento__media) { position: relative; }
 
   @media (max-width: 960px) {
     .formations__head { grid-template-columns: 1fr; }
@@ -120,5 +128,6 @@ import { formations } from '../data/site';
   @media (max-width: 640px) {
     .bento { grid-template-columns: 1fr; }
     .bento__item--featured, .bento__item:last-child { grid-column: auto; }
+    .bento__item--featured .bento__media::after { background: linear-gradient(to top, rgba(11, 29, 21, 0.9), rgba(11, 29, 21, 0.8)); }
   }
 </style>
