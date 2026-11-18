@@ -328,6 +328,14 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
     .visit__map { min-height: 320px; }
     .map__load { width: calc(100% - 32px); bottom: 64px; }
   }
+
+  /* Mobile : champs à 16 px (sinon iOS zoome au focus) et cibles tactiles de 44 px */
+  @media (max-width: 860px) {
+    .field input:not([type='checkbox']), .field select, .field textarea { font-size: 1rem; }
+    .chip span { min-height: 44px; display: inline-flex; align-items: center; }
+    .check input { width: 24px; height: 24px; }
+    .visit__phone { display: inline-flex; align-items: center; min-height: 44px; }
+  }
 </style>
 
 <script>

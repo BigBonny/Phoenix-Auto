@@ -187,6 +187,9 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 }
 .section:not(.section--dark) .brand-text { background: none; color: var(--brand); }
 
+/* Tactile : pas de zoom au double-tap ni de flash gris au toucher */
+a, button, summary, label, input, select, textarea { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
 /* ───────────────────────── Buttons ───────────────────────── */
 .btn {
   --btn-bg: var(--brand);

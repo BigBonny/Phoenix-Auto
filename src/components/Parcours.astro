@@ -124,7 +124,15 @@ import { steps, reasons } from '../data/site';
     .reasons { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 560px) {
-    .reasons { grid-template-columns: 1fr; }
+    .reasons {
+      display: flex; gap: var(--s-3); overflow-x: auto;
+      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+      margin-inline: calc(-1 * var(--gutter)); padding: 4px var(--gutter) var(--s-4);
+      scroll-padding-inline: var(--gutter); scrollbar-width: none;
+    }
+    .reasons::-webkit-scrollbar { display: none; }
+    .reasons__item { flex: 0 0 82%; scroll-snap-align: start; }
+    .reasons__item:hover { transform: none; }
     .timeline__step { grid-template-columns: 52px 1fr; gap: var(--s-4); }
     .timeline__num { width: 52px; height: 52px; font-size: 1rem; }
     .timeline__rail { left: 25px; }

@@ -92,4 +92,9 @@ const year = new Date().getFullYear();
   @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 520px) { .footer__grid { grid-template-columns: 1fr; } }
   @media (max-width: 860px) { .footer { padding-bottom: calc(96px + env(safe-area-inset-bottom)); } }
+  @media (max-width: 860px) {
+    .footer__grid ul a { display: flex; align-items: center; min-height: 44px; padding: 0; }
+    .footer__legal a { display: inline-flex; align-items: center; min-height: 44px; }
+    .footer__legal ul { flex-wrap: wrap; gap: 0 var(--s-5); }
+  }
 </style>

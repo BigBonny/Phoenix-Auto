@@ -200,6 +200,9 @@ import { site } from '../data/site';
     transition-delay: var(--d, 0ms);
   }
   :global(.is-loaded) .hero-in, :global(.is-loaded) .hcard { opacity: 1; transform: none; }
+  /* Filet de sécurité : si le script tarde (réseau lent), le contenu apparaît quand même */
+  :global(.js:not(.is-loaded)) .hero-in, :global(.js:not(.is-loaded)) .hcard { animation: hero-failsafe 0.6s var(--ease-out) 2.5s forwards; }
+  @keyframes hero-failsafe { to { opacity: 1; transform: none; } }
 
   /* Visual */
   .hero__visual { position: relative; aspect-ratio: 1 / 1.05; max-width: 520px; width: 100%; justify-self: end; }

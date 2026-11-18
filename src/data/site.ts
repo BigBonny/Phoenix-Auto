@@ -319,7 +319,7 @@ export const faq = [
     a: 'La loi impose 20 heures minimum en boîte manuelle et 13 heures en boîte automatique. L’évaluation de départ nous permet d’estimer précisément le nombre d’heures adapté à votre profil.',
   },
   {
-    q: 'Puis-je financer mon permis avec mon CPF ?',
+    q: 'Quelles sont les solutions de financement ?',
     a: 'Plusieurs dispositifs existent selon votre situation : CPF, permis à 1 € par jour, aides de France Travail ou de la Région. Appelez l’agence ou passez nous voir : nous vous indiquons ceux auxquels vous pouvez prétendre et vous aidons dans les démarches.',
   },
   {

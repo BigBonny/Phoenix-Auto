@@ -1,6 +1,7 @@
 ---
 /**
  * Clip décoratif en boucle (public/clips/<id>.webm|.mp4 + <id>-poster.jpg).
+ * Les variantes <id>-sm.* (demi-résolution) sont servies aux écrans ≤ 720 px.
  * Rien n'est téléchargé tant que le clip n'approche pas de l'écran ; lecture et pause
  * sont pilotées par src/scripts/motion.ts (pas de lecture si « réduire les animations »).
  */
@@ -26,6 +27,8 @@ const poster = `/clips/${id}-poster.jpg`;
   tabindex="-1"
   disablepictureinpicture
 >
+  <source src={`/clips/${id}-sm.webm`} type="video/webm" media="(max-width: 720px)" />
+  <source src={`/clips/${id}-sm.mp4`} type="video/mp4" media="(max-width: 720px)" />
   <source src={`/clips/${id}.webm`} type="video/webm" />
   <source src={`/clips/${id}.mp4`} type="video/mp4" />
 </video>
