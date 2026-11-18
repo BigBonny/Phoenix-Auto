@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { reviewThemes, site } from '../data/site';
+import { reviews, reviewThemes, site } from '../data/site';
 const { rating, reviews: total, distribution } = site.google;
 const maxTheme = Math.max(...reviewThemes.map((t) => t.count));
 ---
@@ -24,6 +24,29 @@ const maxTheme = Math.max(...reviewThemes.map((t) => t.count));
         </span>
       </a>
     </div>
+
+    {reviews.length > 0 && (
+      <ul class="quotes" role="list">
+        {reviews.map((r, i) => (
+          <li data-reveal style={`--i:${i % 3}`}>
+            <figure class="review card">
+              <Icon name="quote" class="review__quote" />
+              <div class="review__stars" aria-label="5 étoiles sur 5">
+                {[0, 1, 2, 3, 4].map(() => <Icon name="star" />)}
+              </div>
+              <blockquote class="review__text"><p>{r.text}</p></blockquote>
+              <figcaption class="review__author">
+                <span class="review__avatar" aria-hidden="true">{r.name.charAt(0)}</span>
+                <span>
+                  <strong>{r.name}</strong>
+                  <span class="review__tag">{r.tag}</span>
+                </span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    )}
 
     <div class="avis__grid">
       <div class="card dist" data-reveal style="--i:0">
@@ -79,6 +102,30 @@ const maxTheme = Math.max(...reviewThemes.map((t) => t.count));
   .avis__stars { display: flex; gap: 2px; color: var(--star); margin-top: 6px; }
   .avis__stars :global(.icon) { width: 16px; height: 16px; }
   .avis__src { display: block; font-size: var(--fs-xs); color: var(--fg-muted); margin-top: 4px; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Avis cités */
+  .quotes {
+    display: grid; gap: var(--s-4); margin-bottom: var(--s-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+  .quotes > li { display: flex; }
+  .review { position: relative; overflow: hidden; display: flex; flex-direction: column; width: 100%; }
+  .review:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
+  .review :global(.review__quote) {
+    position: absolute; right: 20px; top: 18px; width: 44px; height: 44px;
+    color: var(--sand-2); stroke-width: 1.25;
+  }
+  .review__stars { display: flex; gap: 2px; color: var(--star); }
+  .review__stars :global(.icon) { width: 16px; height: 16px; }
+  .review__text { margin-top: var(--s-4); font-size: 1.05rem; line-height: 1.6; max-width: 62ch; }
+  .review__author { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: var(--s-4); border-top: 1px solid var(--line); }
+  .review__text + .review__author { margin-block-start: var(--s-5); }
+  .review__avatar {
+    display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; flex: none;
+    font-weight: 700; background: var(--ink); color: var(--lime);
+  }
+  .review__author strong { display: block; font-size: var(--fs-sm); }
+  .review__tag { display: block; font-size: var(--fs-xs); color: var(--fg-muted); }
 
   .avis__grid {
     display: grid; gap: var(--s-4);

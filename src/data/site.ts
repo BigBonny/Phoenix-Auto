@@ -290,6 +290,20 @@ export const reviewThemes = [
   { label: 'Code', count: 5 },
 ];
 
+/**
+ * Avis cités — extraits d'avis Google, affichés en cartes au-dessus des statistiques.
+ * Tableau vide = les cartes sont masquées. Pour en ajouter : copier le texte depuis la fiche
+ * Google (avec l'accord de l'élève), prénom + initiale uniquement.
+ *   { name: 'Prénom N.', tag: 'Avis Google · mois année', text: '…' }
+ */
+export const reviews: { name: string; tag: string; text: string }[] = [
+  {
+    name: 'Yohann C.',
+    tag: 'Avis Google · octobre 2026',
+    text: 'Super auto-école ! Des cours clairs, bien expliqués et des moniteurs vraiment professionnels.',
+  },
+];
+
 export const faq = [
   {
     q: 'À partir de quel âge peut-on commencer ?',
