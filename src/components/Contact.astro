@@ -12,7 +12,7 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
     <div class="contact__info">
       <p class="eyebrow" data-reveal>Contact & inscription</p>
       <h2 id="contact-title" class="section-title" data-split>
-        Prêt à <span class="serif fire-text">prendre la route ?</span>
+        Prêt à <span class="serif brand-text">prendre la route ?</span>
       </h2>
       <p class="section-lead" data-reveal style="--d:200ms">
         Réservez votre évaluation de départ ou posez-nous vos questions. Nous vous rappelons sous 24 h ouvrées.
@@ -116,7 +116,7 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
           <div class="field field--check">
             <label class="check">
               <input id="f-rgpd" type="checkbox" name="rgpd" required aria-describedby="f-rgpd-err" />
-              <span>J’accepte que Phoenix Permis utilise ces informations pour me recontacter. <span aria-hidden="true">*</span></span>
+              <span>J’accepte que l’Auto-École de la Préfecture utilise ces informations pour me recontacter. <span aria-hidden="true">*</span></span>
             </label>
             <p class="field__error" id="f-rgpd-err"></p>
           </div>
@@ -137,15 +137,15 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
       <div class="visit__map">
         <div class="map" data-map={osm}>
           <svg class="map__art" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <rect width="600" height="360" fill="#14243a" />
-            <g stroke="#22354e" stroke-width="14" fill="none" stroke-linecap="round">
+            <rect width="600" height="360" fill="#12281d" />
+            <g stroke="#1f3d2d" stroke-width="14" fill="none" stroke-linecap="round">
               <path d="M-20 90 L620 150" /><path d="M-20 280 L620 220" /><path d="M140 -20 L200 380" /><path d="M430 -20 L380 380" />
             </g>
-            <g stroke="#1c2d44" stroke-width="6" fill="none">
+            <g stroke="#183324" stroke-width="6" fill="none">
               <path d="M-20 30 L620 60" /><path d="M-20 330 L620 320" /><path d="M60 -20 L90 380" /><path d="M290 -20 L300 380" /><path d="M530 -20 L520 380" />
             </g>
-            <path d="M-20 200 C 150 180, 260 120, 620 120" stroke="rgba(245,165,36,.4)" stroke-width="5" fill="none" stroke-dasharray="10 10" />
-            <circle cx="300" cy="170" r="46" fill="rgba(226,82,31,.18)" class="map__pulse" />
+            <path d="M-20 200 C 150 180, 260 120, 620 120" stroke="rgba(181,240,74,.4)" stroke-width="5" fill="none" stroke-dasharray="10 10" />
+            <circle cx="300" cy="170" r="46" fill="rgba(34,180,85,.18)" class="map__pulse" />
           </svg>
           <span class="map__pin" aria-hidden="true"><Icon name="pin" /></span>
           <button type="button" class="btn btn--light map__load" data-map-load>
@@ -182,7 +182,7 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
   .contact { overflow: clip; }
   .contact__glow {
     position: absolute; width: 60vmax; height: 60vmax; right: -25vmax; top: -10vmax;
-    background: radial-gradient(circle, rgba(226, 82, 31, 0.2), transparent 60%); pointer-events: none;
+    background: radial-gradient(circle, rgba(34, 180, 85, 0.2), transparent 60%); pointer-events: none;
   }
   .contact__grid { position: relative; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: start; }
 
@@ -193,8 +193,8 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
     box-shadow: inset 0 0 0 1px var(--line-dark);
     transition: box-shadow var(--t-med), background var(--t-med), transform var(--t-med) var(--ease-out);
   }
-  .quick:hover { background: rgba(243, 245, 248, 0.04); box-shadow: inset 0 0 0 1px rgba(245, 165, 36, 0.4); transform: translateX(4px); }
-  .quick__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(245, 165, 36, 0.1); color: var(--amber); flex: none; }
+  .quick:hover { background: rgba(243, 245, 248, 0.04); box-shadow: inset 0 0 0 1px rgba(181, 240, 74, 0.4); transform: translateX(4px); }
+  .quick__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(181, 240, 74, 0.1); color: var(--lime); flex: none; }
   .quick__label { display: block; font-size: var(--fs-xs); color: var(--on-dark-muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
   .quick__value { display: block; font-weight: 600; font-size: 1.05rem; overflow-wrap: anywhere; }
 
@@ -227,9 +227,9 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
     transition: border-color var(--t-fast), box-shadow var(--t-fast);
   }
   .field textarea { resize: vertical; min-height: 96px; }
-  .field input:hover, .field select:hover, .field textarea:hover { border-color: #c9c0b2; }
+  .field input:hover, .field select:hover, .field textarea:hover { border-color: #bcc8b8; }
   .field input:focus, .field select:focus, .field textarea:focus {
-    outline: none; border-color: var(--ember); box-shadow: 0 0 0 4px rgba(194, 58, 23, 0.15);
+    outline: none; border-color: var(--brand); box-shadow: 0 0 0 4px rgba(21, 128, 61, 0.15);
   }
   .field [aria-invalid='true'] { border-color: var(--danger) !important; }
   .field__help { font-size: var(--fs-xs); color: var(--fg-muted); }
@@ -257,7 +257,7 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
   .chip input:focus-visible + span { outline: 3px solid var(--ring); outline-offset: 2px; }
 
   .check { display: flex; gap: 12px; align-items: flex-start; font-size: var(--fs-sm); color: var(--fg-muted); cursor: pointer; }
-  .check input { flex: none; width: 22px; height: 22px; margin-top: 1px; accent-color: var(--ember); cursor: pointer; }
+  .check input { flex: none; width: 22px; height: 22px; margin-top: 1px; accent-color: var(--brand); cursor: pointer; }
 
   .form__submit { margin-top: var(--s-2); min-height: 56px; }
   .form__spinner {
@@ -298,8 +298,8 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
   .map__pin {
     position: absolute; left: 50%; top: 47%; translate: -50% -100%;
     display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50% 50% 50% 0; rotate: -45deg;
-    background: var(--grad-fire); color: var(--ink);
-    box-shadow: 0 12px 30px -6px rgba(226, 82, 31, 0.7);
+    background: var(--grad-brand); color: var(--ink);
+    box-shadow: 0 12px 30px -6px rgba(34, 180, 85, 0.7);
   }
   .map__pin :global(.icon) { rotate: 45deg; width: 24px; height: 24px; }
   .map__load { position: absolute; bottom: 56px; left: 50%; translate: -50% 0; }
@@ -308,17 +308,17 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
 
   .visit__info { display: grid; gap: var(--s-6); padding: clamp(1.5rem, 1rem + 2vw, 3rem); align-content: center; }
   .visit__title { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; letter-spacing: -0.01em; }
-  .visit__title :global(.icon) { width: 20px; height: 20px; color: var(--amber); }
+  .visit__title :global(.icon) { width: 20px; height: 20px; color: var(--lime); }
   .visit__addr { margin-top: var(--s-2); color: var(--on-dark-muted); }
-  .visit__link { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--s-2); min-height: 44px; color: var(--amber); font-weight: 600; }
+  .visit__link { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--s-2); min-height: 44px; color: var(--lime); font-weight: 600; }
   .visit__link :global(.icon) { width: 16px; height: 16px; transition: transform var(--t-med) var(--ease-out); }
   .visit__link:hover :global(.icon) { transform: translateX(4px); }
   .visit__list { margin-top: var(--s-3); display: grid; gap: 8px; font-size: var(--fs-sm); }
   .visit__list li { display: flex; justify-content: space-between; gap: var(--s-4); padding-bottom: 8px; border-bottom: 1px solid var(--line-dark); color: var(--on-dark-muted); }
   .visit__list strong { color: var(--on-dark); font-weight: 600; text-align: right; }
-  .visit__note { margin-top: var(--s-3); font-size: var(--fs-sm); color: var(--amber); }
+  .visit__note { margin-top: var(--s-3); font-size: var(--fs-sm); color: var(--lime); }
   .visit__phone { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--on-dark); letter-spacing: -0.02em; }
-  .visit__phone:hover { color: var(--amber); }
+  .visit__phone:hover { color: var(--lime); }
 
   @media (max-width: 980px) {
     .contact__grid, .visit { grid-template-columns: 1fr; }
@@ -337,7 +337,7 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
     const wrap = mapBtn.closest<HTMLElement>('[data-map]')!;
     const iframe = document.createElement('iframe');
     iframe.src = wrap.dataset.map!;
-    iframe.title = 'Plan d’accès à l’agence Phoenix Permis, Bobigny';
+    iframe.title = 'Plan d’accès à l’Auto-École de la Préfecture, Nanterre';
     iframe.loading = 'lazy';
     wrap.replaceChildren(iframe);
   });
@@ -412,7 +412,7 @@ const directions = `https://www.google.com/maps/dir/?api=1&destination=${lat},${
           if (!res.ok) throw new Error(String(res.status));
         } else {
           const text = [
-            `Bonjour Phoenix Permis, je souhaite réserver une évaluation.`,
+            `Bonjour, je souhaite réserver une évaluation.`,
             `Nom : ${payload.prenom} ${payload.nom}`,
             `Tél : ${payload.telephone}`,
             payload.email && `E-mail : ${payload.email}`,

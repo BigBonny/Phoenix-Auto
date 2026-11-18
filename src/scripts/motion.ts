@@ -1,5 +1,5 @@
 /**
- * Phoenix Permis — moteur d'animations léger (≈3 Ko, sans dépendance).
+ * Auto-École de la Préfecture — moteur d'animations léger (≈3 Ko, sans dépendance).
  * - Révélations au scroll (IntersectionObserver)
  * - Titres découpés mot par mot
  * - Compteurs animés

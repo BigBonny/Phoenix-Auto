@@ -1,35 +1,36 @@
-/* ───────────────────────── Phoenix Permis — Design tokens ───────────────────────── */
+/* ───────────────────────── Auto-École de la Préfecture — Design tokens ───────────────────────── */
 :root {
   /* Brand */
-  /* Palette « Ember & Midnight » */
-  --ink: #0e1a2b;        /* midnight navy — sections sombres */
-  --ink-2: #172638;      /* surfaces sur navy */
-  --ink-3: #213248;
-  --cream: #faf7f2;      /* ivoire chaud — fond clair */
-  --sand: #f1ece3;
-  --sand-2: #e2dbcf;
+  /* Palette « Vert Préfecture » — reprise de la devanture (lettrage vert sur blanc) */
+  --ink: #0b1d15;        /* vert nuit — sections sombres */
+  --ink-2: #13291f;      /* surfaces sur vert nuit */
+  --ink-3: #1c3829;
+  --cream: #f6f8f4;      /* blanc cassé frais — fond clair */
+  --sand: #ebf0e8;
+  --sand-2: #d7dfd3;
   --paper: #ffffff;
 
-  --ember: #b83a17;        /* accent texte sur clair · 5.4:1 sur ivoire */
-  --ember-bright: #d9481f; /* ember de marque (logo, déco, grands titres) */
-  --flame: #ee6a2c;
-  --amber: #f5a524;
-  --gold: #ffd58a;
+  --brand: #15703a;        /* accent texte sur clair · 5.9:1 sur fond clair */
+  --brand-bright: #1fa64a; /* vert de marque (logo, déco, grands titres) */
+  --brand-light: #35c463;
+  --lime: #b5f04a;         /* rehaut sur sections sombres */
+  --lime-soft: #d9f99d;
+  --star: #f5b324;         /* étoiles d'avis */
 
   /* Semantic */
   --bg: var(--cream);
-  --fg: #14202e;          /* ink navy — texte courant */
-  --fg-muted: #5b6676;    /* slate · 5.4:1 sur ivoire */
-  --on-dark: #f3f5f8;
-  --on-dark-muted: #a9b4c4; /* 8.2:1 sur navy */
-  --line: rgba(14, 26, 43, 0.12);
+  --fg: #12211a;          /* texte courant */
+  --fg-muted: #56655c;    /* 5.6:1 sur fond clair */
+  --on-dark: #f3f7f4;
+  --on-dark-muted: #a8b8ae; /* 8:1 sur vert nuit */
+  --line: rgba(11, 29, 21, 0.12);
   --line-dark: rgba(243, 245, 248, 0.12);
-  --ring: #ee6a2c;
+  --ring: #1fa64a;
   --success: #1f7a4d;
   --danger: #b42318;
 
-  --grad-fire: linear-gradient(120deg, #c23a17 0%, #e2521f 45%, #f5a524 100%);
-  --grad-fire-soft: linear-gradient(120deg, rgba(226, 82, 31, 0.14), rgba(245, 165, 36, 0.12));
+  --grad-brand: linear-gradient(120deg, #15803d 0%, #22b455 45%, #b5f04a 100%);
+  --grad-brand-soft: linear-gradient(120deg, rgba(34, 180, 85, 0.14), rgba(181, 240, 74, 0.14));
 
   /* Type */
   --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
@@ -65,9 +66,9 @@
   --r-xl: 32px;
   --r-pill: 999px;
 
-  --shadow-1: 0 1px 2px rgba(14, 26, 43, 0.06), 0 4px 16px rgba(14, 26, 43, 0.06);
-  --shadow-2: 0 2px 6px rgba(14, 26, 43, 0.06), 0 24px 48px -12px rgba(14, 26, 43, 0.18);
-  --shadow-ember: 0 10px 30px -8px rgba(194, 58, 23, 0.55);
+  --shadow-1: 0 1px 2px rgba(11, 29, 21, 0.06), 0 4px 16px rgba(11, 29, 21, 0.06);
+  --shadow-2: 0 2px 6px rgba(11, 29, 21, 0.06), 0 24px 48px -12px rgba(11, 29, 21, 0.18);
+  --shadow-brand: 0 10px 30px -8px rgba(21, 128, 61, 0.55);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -123,7 +124,7 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   border-radius: 6px;
 }
 
-::selection { background: var(--amber); color: var(--ink); }
+::selection { background: var(--lime); color: var(--ink); }
 
 .sr-only {
   position: absolute !important;
@@ -155,13 +156,13 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   display: inline-flex; align-items: center; gap: 10px;
   font-size: var(--fs-xs); font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--ember);
+  color: var(--brand);
 }
 .eyebrow::before {
   content: ''; width: 28px; height: 2px; border-radius: 2px;
-  background: var(--grad-fire);
+  background: var(--grad-brand);
 }
-.section--dark .eyebrow { color: var(--amber); }
+.section--dark .eyebrow { color: var(--lime); }
 
 .section-head { max-width: 760px; margin-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem); }
 .section-head--center { margin-inline: auto; text-align: center; }
@@ -177,18 +178,18 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
   font-weight: 400;
   letter-spacing: -0.01em;
 }
-.fire-text {
-  background: var(--grad-fire);
+.brand-text {
+  background: var(--grad-brand);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   padding-right: 0.08em; /* évite le rognage de l'italique */
 }
-.section:not(.section--dark) .fire-text { background: none; color: var(--ember); }
+.section:not(.section--dark) .brand-text { background: none; color: var(--brand); }
 
 /* ───────────────────────── Buttons ───────────────────────── */
 .btn {
-  --btn-bg: var(--ember);
+  --btn-bg: var(--brand);
   --btn-fg: #fff;
   position: relative;
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -207,17 +208,17 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .btn:active { transform: scale(0.97); }
 
 .btn--primary {
-  background: linear-gradient(120deg, #bf3816, #d24419);
-  box-shadow: var(--shadow-ember);
+  background: linear-gradient(120deg, #126a33, #17843e);
+  box-shadow: var(--shadow-brand);
 }
 .btn--primary::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(120deg, transparent 20%, rgba(255, 213, 138, 0.45) 50%, transparent 80%);
+  background: linear-gradient(120deg, transparent 20%, rgba(217, 249, 157, 0.45) 50%, transparent 80%);
   transform: translateX(-120%);
   transition: transform 0.8s var(--ease-out);
 }
 .btn--primary:hover::after { transform: translateX(120%); }
-.btn--primary:hover { box-shadow: 0 14px 36px -8px rgba(194, 58, 23, 0.7); }
+.btn--primary:hover { box-shadow: 0 14px 36px -8px rgba(21, 128, 61, 0.7); }
 
 .btn--ghost {
   background: transparent; color: var(--fg);
@@ -246,7 +247,7 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .spotlight { --mx: 50%; --my: 50%; }
 .spotlight::before {
   content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(238, 106, 44, 0.13), transparent 60%);
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(53, 196, 99, 0.13), transparent 60%);
   opacity: 0; transition: opacity var(--t-med);
 }
 .spotlight:hover::before { opacity: 1; }
@@ -256,8 +257,8 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 .icon-badge {
   display: grid; place-items: center;
   width: 52px; height: 52px; border-radius: 14px;
-  background: var(--grad-fire-soft);
-  color: var(--ember);
+  background: var(--grad-brand-soft);
+  color: var(--brand);
 }
 .icon-badge .icon { width: 26px; height: 26px; }
 
@@ -307,13 +308,13 @@ ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
 }
 
 /* Dégradé "feu" appliqué mot par mot une fois le titre découpé */
-.fire-text:has(.split-word) { background: none; }
-.fire-text .split-word > span {
-  background: var(--grad-fire);
+.brand-text:has(.split-word) { background: none; }
+.brand-text .split-word > span {
+  background: var(--grad-brand);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   padding-right: 0.08em;
   margin-right: -0.08em;
 }
-.section:not(.section--dark) .fire-text .split-word > span { background: none; color: var(--ember); }
+.section:not(.section--dark) .brand-text .split-word > span { background: none; color: var(--brand); }

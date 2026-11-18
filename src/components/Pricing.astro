@@ -14,10 +14,10 @@ const groups = [
     <div class="section-head section-head--center">
       <p class="eyebrow" data-reveal>Tarifs</p>
       <h2 id="tarifs-title" class="section-title" data-split>
-        Des prix clairs, <span class="serif fire-text">sans surprise.</span>
+        Des prix clairs, <span class="serif brand-text">sans surprise.</span>
       </h2>
       <p class="section-lead" data-reveal style="--d:200ms">
-        Frais de dossier et démarches ANTS inclus. Payable en 4× sans frais ou finançable par le CPF.
+        Frais de dossier et démarches ANTS inclus. Facilités de paiement possibles : renseignez-vous à l’agence.
       </p>
     </div>
 
@@ -132,7 +132,7 @@ const groups = [
   .plan__badge {
     position: absolute; top: 20px; right: 20px;
     font-size: var(--fs-xs); font-weight: 700; padding: 6px 12px; border-radius: var(--r-pill);
-    background: var(--amber); color: var(--ink);
+    background: var(--lime); color: var(--ink);
   }
   .plan__name { font-size: 1.3rem; letter-spacing: -0.02em; padding-right: 120px; }
   .plan__desc { margin-top: var(--s-2); color: var(--fg-muted); font-size: var(--fs-sm); min-height: 3em; }
@@ -144,7 +144,7 @@ const groups = [
   }
   .plan__currency { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; }
   .plan__unit { font-size: var(--fs-xs); color: var(--fg-muted); margin-left: 6px; }
-  .plan__split { margin-top: 6px; font-size: var(--fs-sm); color: var(--ember); font-weight: 600; }
+  .plan__split { margin-top: 6px; font-size: var(--fs-sm); color: var(--brand); font-weight: 600; }
   .plan__features {
     margin: var(--s-5) 0 var(--s-6); padding-top: var(--s-5);
     border-top: 1px dashed var(--line);
@@ -153,26 +153,26 @@ const groups = [
   .plan__features li { display: flex; gap: 10px; align-items: flex-start; }
   .plan__features :global(.icon) {
     width: 20px; height: 20px; flex: none; padding: 3px; margin-top: 1px;
-    border-radius: 50%; stroke-width: 3; color: var(--ember); background: rgba(194, 58, 23, 0.1);
+    border-radius: 50%; stroke-width: 3; color: var(--brand); background: rgba(21, 128, 61, 0.1);
   }
   .plan .btn { margin-top: auto; }
 
   .plan--featured {
     background: var(--ink); color: var(--on-dark); border-color: transparent;
-    box-shadow: 0 30px 60px -24px rgba(14, 26, 43, 0.55);
+    box-shadow: 0 30px 60px -24px rgba(11, 29, 21, 0.55);
   }
   .plan--featured::after {
     content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
-    background: linear-gradient(140deg, rgba(245, 165, 36, 0.8), transparent 40%, transparent 60%, rgba(226, 82, 31, 0.8));
+    background: linear-gradient(140deg, rgba(181, 240, 74, 0.8), transparent 40%, transparent 60%, rgba(34, 180, 85, 0.8));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
   }
   .plan--featured .plan__desc, .plan--featured .plan__unit { color: var(--on-dark-muted); }
-  .plan--featured .plan__split { color: var(--amber); }
+  .plan--featured .plan__split { color: var(--lime); }
   .plan--featured .plan__features { border-color: var(--line-dark); }
-  .plan--featured .plan__features :global(.icon) { color: var(--amber); background: rgba(245, 165, 36, 0.14); }
+  .plan--featured .plan__features :global(.icon) { color: var(--lime); background: rgba(181, 240, 74, 0.14); }
   .plan--featured .plan__currency, .plan--featured .plan__amount {
-    background: var(--grad-fire); -webkit-background-clip: text; background-clip: text; color: transparent;
+    background: var(--grad-brand); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
 
   .extras { margin-top: var(--s-7); display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--s-4); }
@@ -187,17 +187,17 @@ const groups = [
     border-radius: var(--r-lg);
     position: relative; overflow: hidden;
     background: var(--ink); color: var(--on-dark-muted);
-    box-shadow: 0 30px 60px -24px rgba(14, 26, 43, 0.45);
+    box-shadow: 0 30px 60px -24px rgba(11, 29, 21, 0.45);
   }
   .funding::before {
     content: ''; position: absolute; width: 320px; height: 320px; right: -120px; top: -140px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(226, 82, 31, 0.35), transparent 65%); pointer-events: none;
+    background: radial-gradient(circle, rgba(34, 180, 85, 0.35), transparent 65%); pointer-events: none;
   }
   .funding .extras__title { color: var(--on-dark); position: relative; }
   .funding__grid { margin-top: var(--s-4); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4) var(--s-5); }
   .funding__grid li { display: grid; gap: 4px; font-size: var(--fs-sm); line-height: 1.45; }
   .funding__grid { position: relative; }
-  .funding__grid strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--amber); }
+  .funding__grid strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--lime); }
 
   .pricing__legal { margin-top: var(--s-5); font-size: var(--fs-xs); color: var(--fg-muted); text-align: center; }
 

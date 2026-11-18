@@ -7,7 +7,7 @@ import { faq, site } from '../data/site';
     <div class="faq__intro">
       <p class="eyebrow" data-reveal>Questions fréquentes</p>
       <h2 id="faq-title" class="section-title" data-split>
-        Tout ce que vous <span class="serif fire-text">voulez savoir.</span>
+        Tout ce que vous <span class="serif brand-text">voulez savoir.</span>
       </h2>
       <p class="section-lead" data-reveal style="--d:200ms">
         Une autre question ? Notre équipe vous répond par téléphone ou directement en agence.
@@ -43,7 +43,7 @@ import { faq, site } from '../data/site';
     box-shadow: inset 0 0 0 1px var(--line);
     transition: box-shadow var(--t-med);
   }
-  .faq__item[open] { box-shadow: inset 0 0 0 1.5px rgba(194, 58, 23, 0.35), var(--shadow-1); }
+  .faq__item[open] { box-shadow: inset 0 0 0 1.5px rgba(21, 128, 61, 0.35), var(--shadow-1); }
   summary {
     display: flex; justify-content: space-between; align-items: center; gap: var(--s-4);
     min-height: 64px; padding: var(--s-4) var(--s-5);
@@ -56,7 +56,7 @@ import { faq, site } from '../data/site';
     background: var(--sand); transition: transform var(--t-med) var(--ease-out), background var(--t-med), color var(--t-med);
   }
   .faq__toggle :global(.icon) { width: 18px; height: 18px; }
-  .faq__item[open] .faq__toggle { transform: rotate(45deg); background: var(--ember); color: #fff; }
+  .faq__item[open] .faq__toggle { transform: rotate(45deg); background: var(--brand); color: #fff; }
 
   /* Ouverture fluide (navigateurs récents ; repli instantané ailleurs) */
   .faq__item::details-content {

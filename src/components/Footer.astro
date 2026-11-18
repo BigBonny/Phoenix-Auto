@@ -7,14 +7,14 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="container">
     <div class="footer__cta" data-reveal>
-      <p class="footer__big" aria-hidden="true">Prenez votre <span class="serif fire-text">envol.</span></p>
+      <p class="footer__big" aria-hidden="true">Prenez la <span class="serif brand-text">route.</span></p>
       <a href="#contact" class="btn btn--primary" data-magnetic>Réserver mon évaluation <Icon name="arrow" class="arrow" /></a>
     </div>
 
     <div class="footer__grid">
       <div class="footer__brand">
         <a href="#top" aria-label={`${site.name} — retour en haut`}><Logo size={40} id="ftr" /></a>
-        <p>Auto-école à Bobigny (93). Permis B, boîte automatique, conduite accompagnée et code de la route.</p>
+        <p>Auto-école à Nanterre (92), à deux pas de la Préfecture. Permis B, boîte automatique, conduite accompagnée et code de la route.</p>
         <ul class="footer__social" role="list">
           {site.social.instagram && <li><a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram (nouvel onglet)"><Icon name="instagram" /></a></li>}
           {site.social.tiktok && <li><a href={site.social.tiktok} target="_blank" rel="noopener" aria-label="TikTok (nouvel onglet)"><Icon name="tiktok" /></a></li>}
@@ -76,12 +76,12 @@ const year = new Date().getFullYear();
     box-shadow: inset 0 0 0 1px var(--line-dark); color: var(--on-dark);
     transition: background var(--t-med), color var(--t-med), transform var(--t-med) var(--ease-out);
   }
-  .footer__social a:hover { background: var(--amber); color: var(--ink); transform: translateY(-3px); }
+  .footer__social a:hover { background: var(--lime); color: var(--ink); transform: translateY(-3px); }
   .footer__social :global(.icon) { width: 20px; height: 20px; }
   .footer__h { font-family: var(--font-body); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.14em; color: var(--on-dark); font-weight: 600; margin-bottom: var(--s-4); }
   .footer__grid ul { display: grid; gap: 4px; font-size: var(--fs-sm); }
   .footer__grid ul a { display: inline-block; padding: 6px 0; transition: color var(--t-fast); }
-  .footer__grid ul a:hover { color: var(--amber); }
+  .footer__grid ul a:hover { color: var(--lime); }
   .footer__legal {
     display: flex; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap;
     padding-top: var(--s-5); border-top: 1px solid var(--line-dark); font-size: var(--fs-xs);

@@ -1,6 +1,6 @@
 /**
  * ─────────────────────────────────────────────────────────────
- *  PHOENIX PERMIS — Contenu du site
+ *  AUTO-ÉCOLE DE LA PRÉFECTURE (Nanterre) — Contenu du site
  *  Toutes les informations de l'agence sont ici.
  *  ⚠️ Les valeurs marquées TODO sont des EXEMPLES à remplacer
  *     par les vraies données avant la mise en ligne.
@@ -8,45 +8,45 @@
  */
 
 export const site = {
-  name: 'Phoenix Permis',
-  tagline: 'Auto-école à Bobigny',
-  url: 'https://www.phoenix-permis.fr', // TODO : nom de domaine définitif
+  name: 'Auto-École de la Préfecture',
+  tagline: 'Auto-école à Nanterre',
+  url: 'https://www.autoecole-prefecture-nanterre.fr', // TODO : nom de domaine définitif
   description:
-    "Phoenix Permis, auto-école à Bobigny (93), 44 avenue Jean Jaurès : permis B en boîte manuelle ou automatique, conduite accompagnée, code de la route. Noté 4,8/5 sur Google par plus de 390 élèves.",
+    "Auto-École de la Préfecture, 68 rue des 3 Fontanot à Nanterre (92), à deux pas du RER Nanterre-Préfecture : permis B en boîte manuelle ou automatique, conduite accompagnée, code de la route. Notée 4,8/5 sur Google par 177 élèves.",
 
-  // Coordonnées — source : fiche Google Maps « Phoenix Permis Bobigny » (relevée le 13/11/2026)
-  phone: '09 87 75 75 73',
-  phoneHref: '+33987757573',
+  // Coordonnées — source : fiche Google Maps « Auto Ecole De La Prefecture » (relevée le 18/11/2026)
+  phone: '01 47 25 23 59',
+  phoneHref: '+33147252359',
   whatsapp: '', // TODO : numéro WhatsApp (format 336XXXXXXXX). Vide = boutons WhatsApp masqués
   email: '', // TODO : e-mail de l'agence. Vide = lien e-mail masqué
   address: {
-    street: '44 avenue Jean Jaurès',
-    postalCode: '93000',
-    city: 'Bobigny',
-    lat: 48.901329,
-    lng: 2.4412152,
+    street: '68 rue des 3 Fontanot',
+    postalCode: '92000',
+    city: 'Nanterre',
+    lat: 48.8959912,
+    lng: 2.2227311,
   },
   hours: [
-    { days: 'Lundi, mercredi', time: '15h00 – 20h00' },
-    { days: 'Mardi, jeudi, vendredi', time: '10h00 – 13h00 · 15h00 – 20h00' },
-    { days: 'Samedi', time: '10h00 – 14h00' },
-    { days: 'Dimanche', time: 'Fermé' },
+    { days: 'Lundi – jeudi', time: '10h00 – 14h00 · 15h00 – 19h00' },
+    { days: 'Vendredi', time: '10h00 – 13h00 · 15h00 – 19h00' },
+    { days: 'Samedi, dimanche', time: 'Fermé' },
   ],
   /** Mêmes horaires, au format schema.org (référencement Google) */
   openingHoursSpec: [
-    { days: ['Monday', 'Wednesday'], opens: '15:00', closes: '20:00' },
-    { days: ['Tuesday', 'Thursday', 'Friday'], opens: '10:00', closes: '13:00' },
-    { days: ['Tuesday', 'Thursday', 'Friday'], opens: '15:00', closes: '20:00' },
-    { days: ['Saturday'], opens: '10:00', closes: '14:00' },
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '10:00', closes: '14:00' },
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '15:00', closes: '19:00' },
+    { days: ['Friday'], opens: '10:00', closes: '13:00' },
   ],
   drivingHours: 'Horaires d’accueil de l’agence. Leçons de conduite sur rendez-vous.',
 
-  /** Note Google (fiche Maps, relevée le 13/11/2026) */
+  /** Note Google (fiche Maps, relevée le 18/11/2026) */
   google: {
     rating: 4.8,
-    reviews: 392,
-    fiveStars: 370,
-    url: 'https://maps.google.com/?cid=15798944696892170854',
+    reviews: 177,
+    fiveStars: 161,
+    /** Répartition des notes, de 5 à 1 étoile */
+    distribution: [161, 9, 1, 0, 6],
+    url: 'https://maps.google.com/?cid=17823600035465599343',
   },
 
   /**
@@ -58,11 +58,11 @@ export const site = {
   social: {
     instagram: '', // TODO (vide = icône masquée)
     tiktok: '', // TODO (vide = icône masquée)
-    google: 'https://maps.google.com/?cid=15798944696892170854',
+    google: 'https://maps.google.com/?cid=17823600035465599343',
   },
 
   // Agrément préfectoral — obligatoire sur le site d'une auto-école. TODO
-  agrement: 'E 00 093 0000 0',
+  agrement: 'E 00 092 0000 0',
   siret: '000 000 000 00000', // TODO
 };
 
@@ -78,6 +78,7 @@ export const stats: Stat[] = [
   { value: Math.round((site.google.fiveStars / site.google.reviews) * 100), suffix: '%', label: 'des avis sont à 5 étoiles' },
 ];
 
+/** Formations — TODO : à valider avec l'auto-école (offre exacte, volumes d'heures) */
 export type Formation = {
   id: string;
   title: string;
@@ -151,34 +152,34 @@ export const steps = [
   },
   {
     title: 'La conduite, en confiance',
-    text: 'Des leçons sur véhicules récents à double commande, avec des moniteurs patients qui vous suivent du premier cours à l’examen.',
+    text: 'Des leçons sur véhicules récents à double commande, avec des moniteurs pédagogues qui vous suivent du premier cours à l’examen.',
   },
   {
-    title: 'L’examen… et l’envol',
+    title: 'L’examen, puis la route',
     text: 'Examens blancs, réservation de la date et accompagnement le jour J. Il ne reste plus qu’à prendre la route.',
   },
 ];
 
 export const reasons = [
   {
-    title: 'Moniteurs diplômés d’État',
-    text: 'Une équipe patiente et bienveillante, formée à la pédagogie et à la gestion du stress.',
+    title: 'Des moniteurs pédagogues',
+    text: 'La pédagogie est le mot qui revient le plus dans nos avis Google : on prend le temps d’expliquer, jusqu’à ce que ce soit acquis.',
     icon: 'shield',
   },
   {
-    title: 'Véhicules récents',
-    text: 'Citadines modernes, climatisées et équipées de double commande, en manuelle comme en automatique.',
-    icon: 'car',
-  },
-  {
-    title: 'Réservation en ligne',
-    text: 'Planifiez vos leçons depuis votre téléphone, en quelques secondes, et suivez votre progression.',
+    title: 'Un secrétariat qui vous suit',
+    text: 'Dossier, planning, dates d’examen : une interlocutrice disponible à l’agence, saluée par nos élèves.',
     icon: 'calendar',
   },
   {
-    title: 'Financement facilité',
-    text: 'CPF, permis à 1 € par jour, paiement en 4× sans frais, aides France Travail et Région.',
-    icon: 'wallet',
+    title: 'Au pied du RER A',
+    text: 'L’agence est à deux pas de la gare Nanterre-Préfecture et de la Préfecture des Hauts-de-Seine. Facile après les cours ou le travail.',
+    icon: 'train',
+  },
+  {
+    title: 'Le code, où vous voulez',
+    text: 'Entraînement au code en ligne avec les outils Codes Rousseau, en complément des séances à l’agence.', // TODO : à confirmer
+    icon: 'book',
   },
 ] as const;
 
@@ -264,43 +265,29 @@ export const pricing = {
   ],
 };
 
+/** Financement — TODO : ne garder que les dispositifs réellement proposés par l'auto-école */
 export const funding = [
-  { title: 'CPF', text: 'Financez votre permis avec votre Compte Personnel de Formation.' },
+  { title: 'CPF', text: 'Le permis B peut être financé par le Compte Personnel de Formation, sous conditions.' },
   { title: 'Permis à 1 €/jour', text: 'Un prêt à taux zéro pour les 15–25 ans, en partenariat avec l’État.' },
-  { title: 'Paiement 4× sans frais', text: 'Étalez le coût de votre formation sans aucun frais.' },
-  { title: 'Aides France Travail', text: 'Jusqu’à 1 200 € d’aide sous conditions pour les demandeurs d’emploi.' },
+  { title: 'Paiement échelonné', text: 'Étalez le coût de votre formation : parlez-en à l’agence.' },
+  { title: 'Aides France Travail', text: 'Une aide au permis existe, sous conditions, pour les demandeurs d’emploi.' },
 ];
 
 /**
- * Avis réels — extraits de la fiche Google Maps (avis 5 étoiles, relevés le 13/11/2026).
- * Textes raccourcis (« […] ») ; prénom + initiale uniquement.
+ * Avis Google — thèmes les plus cités dans les avis de la fiche Maps (relevés le 18/11/2026).
+ * `count` = nombre d'avis mentionnant le thème.
  */
-export const reviews = [
-  {
-    name: 'Frei D.',
-    tag: 'Permis obtenu du 1er coup',
-    text: 'Excellente auto-école ! Une équipe au top, professionnelle, à l’écoute et toujours encourageante. Les moniteurs sont très pédagogues, patients et prennent le temps de bien expliquer pour nous mettre en confiance. […] J’ai eu mon permis du premier coup.',
-  },
-  {
-    name: 'Nelia M.',
-    tag: 'Avis Google',
-    text: 'Les moniteurs sont super gentils, patients et surtout très rassurants. […] J’ai vraiment apprécié mon apprentissage avec eux, notamment avec Reda et Amadou. Leurs conseils m’ont beaucoup aidée à progresser et à prendre confiance en moi.',
-  },
-  {
-    name: 'Fateh A.',
-    tag: 'Avis Google',
-    text: 'Une auto-école incroyable, de confiance, avec des personnes très humaines ! Merci à tous les moniteurs, Amadou, Lionel, Sadi et Reda, ils sont vraiment tous gentils et veulent votre réussite. Merci aussi à Myriam, elle m’a toujours aidé et conseillé pour le planning.',
-  },
-  {
-    name: 'Kenny F.',
-    tag: 'Permis obtenu',
-    text: 'Une excellente auto-école ! L’équipe est très pédagogue, à l’écoute et patiente. J’ai eu des moniteurs top qui m’ont bien préparé à l’examen sans me stresser. Les voitures sont propres et faciles à conduire. Je recommande les yeux fermés !',
-  },
-  {
-    name: 'Élève Phoenix',
-    tag: 'Permis obtenu du 1er coup',
-    text: 'Je recommande vivement cette auto-école ! Les moniteurs sont patients, pédagogues et mettent vraiment en confiance. Meilleure secrétaire, très patiente et à l’écoute. Grâce à leur accompagnement, j’ai obtenu mon permis rapidement et du premier coup.',
-  },
+export const reviewThemes = [
+  { label: 'Pédagogie', count: 35 },
+  { label: 'Moniteurs', count: 25 },
+  { label: 'Secrétariat', count: 18 },
+  { label: 'Confiance', count: 10 },
+  { label: 'Élèves', count: 9 },
+  { label: 'Équipe', count: 8 },
+  { label: 'Bienveillance', count: 8 },
+  { label: 'Bonne humeur', count: 7 },
+  { label: 'Compétences', count: 5 },
+  { label: 'Code', count: 5 },
 ];
 
 export const faq = [
@@ -314,7 +301,7 @@ export const faq = [
   },
   {
     q: 'Puis-je financer mon permis avec mon CPF ?',
-    a: 'Oui. Nos formations au permis B sont éligibles au CPF. Nous vous accompagnons dans les démarches sur moncompteformation.gouv.fr. Le permis à 1 € par jour et le paiement en 4× sans frais sont aussi possibles.',
+    a: 'Plusieurs dispositifs existent selon votre situation : CPF, permis à 1 € par jour, aides de France Travail ou de la Région. Appelez l’agence ou passez nous voir : nous vous indiquons ceux auxquels vous pouvez prétendre et vous aidons dans les démarches.',
   },
   {
     q: 'Boîte manuelle ou automatique : que choisir ?',
@@ -326,7 +313,7 @@ export const faq = [
   },
   {
     q: 'Où se déroulent les leçons de conduite ?',
-    a: 'Les leçons démarrent de l’agence à Bobigny et se déroulent sur les parcours d’examen du secteur, en ville, sur voie rapide et en périphérie, pour vous préparer aux conditions réelles.',
+    a: 'Les leçons démarrent de l’agence, rue des 3 Fontanot à Nanterre, et se déroulent sur les parcours d’examen du secteur, en ville et sur voie rapide, pour vous préparer aux conditions réelles.',
   },
 ];
 

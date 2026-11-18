@@ -7,27 +7,27 @@ interface Props {
 const { size = 40, withText = true, id = 'lg' } = Astro.props;
 ---
 <span class="logo">
+  <!-- Sceau « Préfecture » : tampon cranté + volant -->
   <svg class="logo__mark" width={size} height={size} viewBox="0 0 64 64" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient id={`${id}-fire`} x1="0" y1="1" x2="0.4" y2="0">
-        <stop offset="0" stop-color="#c23a17" />
-        <stop offset="0.55" stop-color="#e2521f" />
-        <stop offset="1" stop-color="#f5a524" />
+      <linearGradient id={`${id}-brand`} x1="0" y1="1" x2="0.6" y2="0">
+        <stop offset="0" stop-color="#15803d" />
+        <stop offset="0.6" stop-color="#22b455" />
+        <stop offset="1" stop-color="#b5f04a" />
       </linearGradient>
     </defs>
-    <g fill={`url(#${id}-fire)`}>
-      <path class="logo__wing logo__wing--l" d="M32 40C26 34 15 34 6 19c6 3 11 3 15 1-4-4-6-9-5.5-15C21.5 13 28 20 32 30Z" />
-      <path class="logo__wing logo__wing--r" d="M32 40c6-6 17-6 26-21-6 3-11 3-15 1 4-4 6-9 5.5-15C42.5 13 36 20 32 30Z" />
-      <path class="logo__tail" d="M32 38c-4 6-4.5 13 0 22 4.5-9 4-16 0-22Z" />
-      <path class="logo__tail" d="M31 44c-6 3-9.5 7.5-10 14 3.5-3.5 6.5-5.5 10.5-7Z" opacity=".75" />
-      <path class="logo__tail" d="M33 44c6 3 9.5 7.5 10 14-3.5-3.5-6.5-5.5-10.5-7Z" opacity=".75" />
-      <circle cx="32" cy="21" r="3.6" />
+    <circle cx="32" cy="32" r="29.5" fill="none" stroke={`url(#${id}-brand)`} stroke-width="3" stroke-dasharray="2.4 2.75" />
+    <circle cx="32" cy="32" r="24" fill={`url(#${id}-brand)`} />
+    <g class="logo__wheel" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round">
+      <circle cx="32" cy="32" r="13.5" />
+      <path d="M19.5 29.5h25M32 34v11" />
+      <circle cx="32" cy="31" r="3.4" fill="#fff" stroke="none" />
     </g>
   </svg>
   {withText && (
     <span class="logo__text">
-      <span class="logo__name">Phoenix</span>
-      <span class="logo__sub">Permis</span>
+      <span class="logo__sub">Auto-école de la</span>
+      <span class="logo__name">Préfecture</span>
     </span>
   )}
 </span>
@@ -35,22 +35,21 @@ const { size = 40, withText = true, id = 'lg' } = Astro.props;
 <style>
   .logo { display: inline-flex; align-items: center; gap: 10px; }
   .logo__mark { flex: none; overflow: visible; }
-  .logo__text { display: flex; align-items: baseline; gap: 6px; line-height: 1; }
+  .logo__text { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
+  .logo__sub {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--brand-light);
+    white-space: nowrap;
+  }
   .logo__name {
     font-family: var(--font-display);
     font-weight: 750;
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     letter-spacing: -0.03em;
   }
-  .logo__sub {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.4rem;
-    color: var(--ember-bright);
-  }
-  .logo__wing { transform-box: fill-box; transition: transform 0.6s var(--ease-spring); }
-  .logo__wing--l { transform-origin: 100% 100%; }
-  .logo__wing--r { transform-origin: 0% 100%; }
-  :global(a:hover) > .logo .logo__wing--l { transform: rotate(-8deg); }
-  :global(a:hover) > .logo .logo__wing--r { transform: rotate(8deg); }
+  .logo__wheel { transform-box: view-box; transform-origin: 32px 32px; transition: transform 0.7s var(--ease-spring); }
+  :global(a:hover) > .logo .logo__wheel { transform: rotate(-28deg); }
 </style>

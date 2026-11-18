@@ -1,6 +1,6 @@
-# Phoenix Permis — site vitrine
+# Auto-École de la Préfecture — site vitrine
 
-Site one-page de l'auto-école Phoenix Permis (Bobigny, 93). Astro (statique), aucune dépendance JS côté client hormis un petit moteur d'animations maison (`src/scripts/motion.ts`).
+Site one-page de l'Auto-École de la Préfecture (Nanterre, 92). Astro (statique), aucune dépendance JS côté client hormis un petit moteur d'animations maison (`src/scripts/motion.ts`).
 
 ## Développement
 

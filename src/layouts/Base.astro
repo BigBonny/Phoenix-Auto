@@ -10,7 +10,7 @@ interface Props {
   description?: string;
 }
 const {
-  title = `${site.name} · Auto-école à Bobigny (93) — Permis B, boîte auto, conduite accompagnée`,
+  title = `${site.name} · Nanterre (92) — Permis B, boîte auto, conduite accompagnée`,
   description = site.description,
 } = Astro.props;
 
@@ -39,7 +39,7 @@ const jsonLd = {
         addressCountry: 'FR',
       },
       geo: { '@type': 'GeoCoordinates', latitude: site.address.lat, longitude: site.address.lng },
-      areaServed: ['Bobigny', 'Drancy', 'Pantin', 'Noisy-le-Sec', 'Bondy', 'Romainville', 'Aubervilliers'],
+      areaServed: ['Nanterre', 'Puteaux', 'Courbevoie', 'Rueil-Malmaison', 'Colombes', 'Suresnes', 'La Garenne-Colombes'],
       openingHoursSpecification: site.openingHoursSpec.map((h) => ({
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: h.days,
@@ -66,7 +66,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#0e1a2b" />
+    <meta name="theme-color" content="#0b1d15" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="format-detection" content="telephone=no" />
 

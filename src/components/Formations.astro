@@ -8,7 +8,7 @@ import { formations } from '../data/site';
       <div>
         <p class="eyebrow" data-reveal>Nos formations</p>
         <h2 id="formations-title" class="section-title" data-split>
-          Une formule pour chaque <span class="serif fire-text">conducteur.</span>
+          Une formule pour chaque <span class="serif brand-text">conducteur.</span>
         </h2>
       </div>
       <p class="section-lead" data-reveal style="--d:200ms">
@@ -80,11 +80,11 @@ import { formations } from '../data/site';
     padding: 6px 12px 6px 8px; border-radius: var(--r-pill);
     box-shadow: inset 0 0 0 1px var(--line);
   }
-  .bento__points :global(.icon) { width: 14px; height: 14px; color: var(--ember); stroke-width: 2.4; }
+  .bento__points :global(.icon) { width: 14px; height: 14px; color: var(--brand); stroke-width: 2.4; }
   .bento__link {
     margin-top: auto; padding-top: var(--s-5);
     display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
-    font-weight: 600; color: var(--ember);
+    font-weight: 600; color: var(--brand);
     min-height: 44px;
   }
   .bento__link :global(.icon) { width: 18px; height: 18px; transition: transform var(--t-med) var(--ease-out); }
@@ -97,16 +97,16 @@ import { formations } from '../data/site';
   }
   .bento__item--featured .bento__text { color: var(--on-dark-muted); max-width: 46ch; }
   .bento__item--featured .bento__title { font-size: var(--fs-xl); max-width: 16ch; }
-  .bento__item--featured .bento__kicker { background: rgba(245, 165, 36, 0.14); color: var(--amber); }
-  .bento__item--featured .icon-badge { background: var(--grad-fire); color: var(--ink); }
+  .bento__item--featured .bento__kicker { background: rgba(181, 240, 74, 0.14); color: var(--lime); }
+  .bento__item--featured .icon-badge { background: var(--grad-brand); color: var(--ink); }
   .bento__item--featured .bento__points li { box-shadow: inset 0 0 0 1px var(--line-dark); }
-  .bento__item--featured .bento__points :global(.icon) { color: var(--amber); }
-  .bento__item--featured .bento__link { color: var(--amber); }
+  .bento__item--featured .bento__points :global(.icon) { color: var(--lime); }
+  .bento__item--featured .bento__link { color: var(--lime); }
   .bento__deco {
     position: absolute; right: -10px; bottom: -6px; width: 62%; height: auto; pointer-events: none;
   }
   .bento__deco path {
-    fill: none; stroke: rgba(245, 165, 36, 0.35); stroke-width: 2; stroke-dasharray: 10 12;
+    fill: none; stroke: rgba(181, 240, 74, 0.35); stroke-width: 2; stroke-dasharray: 10 12;
     animation: drive-deco 3s linear infinite;
   }
   @keyframes drive-deco { to { stroke-dashoffset: -44; } }

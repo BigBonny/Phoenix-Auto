@@ -53,13 +53,13 @@ import { navLinks, site } from '../data/site';
     transition: transform var(--t-med) var(--ease-out), background-color var(--t-med), box-shadow var(--t-med), color var(--t-med);
   }
   .header.is-scrolled {
-    background: rgba(14, 26, 43, 0.94);
+    background: rgba(11, 29, 21, 0.94);
     box-shadow: 0 1px 0 var(--line-dark);
   }
   /* Light blur on desktop only: touch devices get the (cheaper) near-opaque bar */
   @media (hover: hover) and (pointer: fine) {
     .header.is-scrolled {
-      background: rgba(14, 26, 43, 0.84);
+      background: rgba(11, 29, 21, 0.84);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
@@ -85,7 +85,7 @@ import { navLinks, site } from '../data/site';
   }
   .header__link::after {
     content: ''; position: absolute; left: 14px; right: 14px; bottom: 4px; height: 2px; border-radius: 2px;
-    background: var(--grad-fire);
+    background: var(--grad-brand);
     transform: scaleX(0); transform-origin: right;
     transition: transform var(--t-med) var(--ease-out);
   }
@@ -99,7 +99,7 @@ import { navLinks, site } from '../data/site';
     font-variant-numeric: tabular-nums;
     color: var(--on-dark);
   }
-  .header__phone .icon { width: 18px; height: 18px; color: var(--amber); }
+  .header__phone .icon { width: 18px; height: 18px; color: var(--lime); }
   .header__cta { min-height: 46px; padding: 0 20px; }
 
   .header__burger {

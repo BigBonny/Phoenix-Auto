@@ -1,5 +1,5 @@
 ---
-const words = ['Permis B', 'Boîte automatique', 'Conduite accompagnée', 'Code de la route', 'Stage accéléré', 'Passerelle', 'Éligible CPF', '4,8/5 sur Google'];
+const words = ['Permis B', 'Boîte automatique', 'Conduite accompagnée', 'Code de la route', 'Stage accéléré', 'Passerelle', 'Nanterre-Préfecture', '4,8/5 sur Google'];
 ---
 <div class="marquee" aria-hidden="true">
   <div class="marquee__track">
@@ -19,14 +19,14 @@ const words = ['Permis B', 'Boîte automatique', 'Conduite accompagnée', 'Code 
 <style>
   .marquee {
     position: relative;
-    background: var(--grad-fire);
+    background: var(--grad-brand);
     color: var(--ink);
     overflow: hidden;
     padding-block: 18px;
     transform: rotate(-1.2deg) scale(1.02);
     margin-block: -24px;
     z-index: 2;
-    box-shadow: 0 20px 40px -20px rgba(194, 58, 23, 0.6);
+    box-shadow: 0 20px 40px -20px rgba(21, 128, 61, 0.6);
   }
   .marquee__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
   .marquee:hover .marquee__track { animation-play-state: paused; }
